@@ -77,9 +77,7 @@ The shell has a number of special variables. PS1 is one, it sets the look of you
 
 ### Alias Examples
 ``` bash
-# more useful `du` - shows human readable size of all directories
-# including dot ones and then sorts in numerical order obeying G<M<K<B rule.
-alias ddu='du -hd 1 . | gsort -h'
+LS_OPTIONS="--color=auto -F -G"
 # standard ls coloured
 alias ls='gls $LS_OPTIONS'
 # standard plus dot files
@@ -88,6 +86,12 @@ alias la='gls $LS_OPTIONS -A'
 alias ll='gls $LS_OPTIONS -l'
 alias l='gls $LS_OPTIONS -lA'
 ```
+<div class="notes">
+Here we have some aliases for a command with long and hard to
+remember options. An alias becomes a literal command so you can have
+options and arguments after it, but you can't pass an argument to the
+middle of it. This requires a function.
+</div>
 
 ### First Steps - Just A Little Function
 ``` bash
@@ -97,6 +101,10 @@ manp()
 man -t $* | open -f -a /Applications/Preview.app/
 }
 ```
+<div class="notes">
+Here's a function that allows multiple arguments in the middle. The
+`$*` will be replaced by all the arguments on the command line.
+</div>
 
 ### Decisions, Decisions
 - If, else, then
@@ -111,6 +119,13 @@ then
         PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] "
 fi
 ```
+<div class="notes">
+An if statement. In this one we decide if we want to change the colour
+of the prompt depending if we are `root` or not. Not the `id -u`
+between the backticks. When we place a command between backticks the
+command is run and the output is used. Here we have the `id` shell
+command print our user ID, which is 0 if we are root.
+</div>
 
 ### Colour `ls`
 ``` bash
@@ -135,7 +150,7 @@ case $WORD in
 esac
 ```
 
-Using && and ||
+### Using && and ||
 ```bash
 [ `id -u` = 0 ] && PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] " \
 || PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
