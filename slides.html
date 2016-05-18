@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Tony Williams">
+  <title>Beginning Bash</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Beginning Bash</h1>
+  <h2 class="author">Tony Williams</h2>
+  <h3 class="date">X-World 2016</h3>
+</section>
+
+<section id="setting-up-terminal" class="slide level3">
+<h1>Setting Up <code>Terminal</code></h1>
+</section>
+<section id="looking-good" class="slide level3">
+<h1>Looking Good</h1>
+<ul>
+<li class="fragment">A Good Profile 'Solarized'</li>
+<li class="fragment">Setting Font and Size</li>
+<li class="fragment">Setting Window Size</li>
+</ul>
+<aside class="notes">
+<p>A good start is to make Terminal look better. You can colorize the output with a profile and use a better font and bigger font size.</p>
+</aside>
+</section>
+<section id="before-we-begin" class="slide level3">
+<h1>Before We Begin</h1>
+<ul>
+<li class="fragment">Homebrew</li>
+<li class="fragment">coreutils</li>
+<li class="fragment">source-highlight</li>
+</ul>
+<aside class="notes">
+<p>Before we start we need to install a couple of packages. We will do that with <code>homebrew</code>.</p>
+<p>coreutils is a pack of general utilities from the Gnu project. We install these as Linux uses them.</p>
+<p>source-highlight is a package from the Gnu project that highlights source code. We use it for that purpose.</p>
+</aside>
+</section>
+<section id="simple-commands" class="slide level3">
+<h1>Simple Commands</h1>
+</section>
+<section id="defaults-read" class="slide level3">
+<h1><code>defaults</code> Read</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">defaults</span> read com.apple.dock <span class="kw">|</span> <span class="kw">less</span></code></pre></div>
+<aside class="notes">
+<p>defaults is a command that allows us to read, write, and delete Mac OS X user defaults from the command-line. Here we are reading the preferences for the dock.</p>
+</aside>
+</section>
+<section id="defaults" class="slide level3">
+<h1><code>defaults</code></h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">defaults</span> write com.apple.dock autohide -bool YES <span class="kw">;</span> <span class="kw">killall</span> Dock
+<span class="kw">defaults</span> write com.apple.dock autohide -bool NO <span class="kw">;</span> <span class="kw">killall</span> Dock
+<span class="kw">defaults</span> write com.apple.dock orientation <span class="st">&quot;right&quot;</span> <span class="kw">;</span> <span class="kw">killall</span> Dock
+<span class="kw">defaults</span> write com.apple.dock orientation <span class="st">&quot;bottom&quot;</span> <span class="kw">;</span> <span class="kw">killall</span> Dock</code></pre></div>
+<aside class="notes">
+<p>Now we use 'write' to change the preferences.</p>
+</aside>
+</section>
+<section id="shell-programming" class="slide level3">
+<h1>Shell Programming</h1>
+</section>
+<section id="echo-stuff" class="slide level3">
+<h1>Echo Stuff</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">WORD=</span><span class="st">&quot;Foobar&quot;</span> ; <span class="kw">echo</span> <span class="ot">$WORD</span></code></pre></div>
+<aside class="notes">
+<p>Here we see how to set a variable and how to use one.</p>
+</aside>
+</section>
+<section id="pretty-prompt" class="slide level3">
+<h1>Pretty Prompt</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
+<aside class="notes">
+<p>The shell has a number of special variables. PS1 is one, it sets the look of your prompt.</p>
+</aside>
+</section>
+<section id="alias-fun" class="slide level3">
+<h1>Alias fun</h1>
+<ul>
+<li class="fragment">Commonly used options</li>
+<li class="fragment">Hard to remember options</li>
+</ul>
+</section>
+<section id="alias-examples" class="slide level3">
+<h1>Alias Examples</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># more useful `du` - shows human readable size of all directories</span>
+<span class="co"># including dot ones and then sorts in numerical order obeying G&lt;M&lt;K&lt;B rule.</span>
+<span class="kw">alias</span> ddu=<span class="st">&#39;du -hd 1 . | gsort -h&#39;</span>
+<span class="co"># standard ls coloured</span>
+<span class="kw">alias</span> ls=<span class="st">&#39;gls $LS_OPTIONS&#39;</span>
+<span class="co"># standard plus dot files</span>
+<span class="kw">alias</span> la=<span class="st">&#39;gls $LS_OPTIONS -A&#39;</span>
+<span class="co"># long ls</span>
+<span class="kw">alias</span> ll=<span class="st">&#39;gls $LS_OPTIONS -l&#39;</span>
+<span class="kw">alias</span> l=<span class="st">&#39;gls $LS_OPTIONS -lA&#39;</span></code></pre></div>
+</section>
+<section id="fuirst-steps---just-a-little-function" class="slide level3">
+<h1>Fuirst Steps - Just A Little Function</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># function to send man page to preview</span>
+<span class="fu">manp()</span>
+<span class="kw">{</span>
+<span class="kw">man</span> -t <span class="ot">$*</span> <span class="kw">|</span> <span class="kw">open</span> -f -a /Applications/Preview.app/
+<span class="kw">}</span></code></pre></div>
+</section>
+<section id="decisions-decisions" class="slide level3">
+<h1>Decisions, Decisions</h1>
+<ul>
+<li class="fragment">If, else, then</li>
+<li class="fragment">Case</li>
+<li class="fragment">Using '&amp;&amp;' and '||'</li>
+</ul>
+</section>
+<section id="example-decision" class="slide level3">
+<h1>Example Decision</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># make root red</span>
+<span class="kw">if [</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span>
+<span class="kw">then</span>
+        <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span>
+<span class="kw">fi</span></code></pre></div>
+</section>
+<section id="colour-ls" class="slide level3">
+<h1>Colour <code>ls</code></h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># colours for the Gnu ls (from coreutils)</span>
+<span class="kw">if [</span> <span class="st">&quot;</span><span class="ot">$TERM</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;dumb&quot;</span><span class="kw"> ]</span>; <span class="kw">then</span>
+    <span class="kw">export</span> <span class="ot">LS_OPTIONS=</span><span class="st">&#39;--color=auto -F -G -h&#39;</span>
+    <span class="kw">eval</span> <span class="kw">`gdircolors</span> ~/.dircolors<span class="kw">`</span>
+<span class="kw">fi</span></code></pre></div>
+</section>
+<section id="make-a-case" class="slide level3">
+<h1>Make A Case</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
+
+<span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
+    <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
+    <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
+    <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
+    <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
+<span class="kw">esac</span></code></pre></div>
+<p>Using &amp;&amp; and ||</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
+<span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
+</section>
+<section id="redirection" class="slide level3">
+<h1>Redirection</h1>
+<p><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html">All About Redirection</a> - Redirecting output - STDOUT - STDERR - tee - Directing input - From a file - Here documents - Here variable</p>
+</section>
+<section id="both-out-and-err" class="slide level3">
+<h1>Both OUT and ERR</h1>
+<p>If you want to log to the same file: <code>command1 &gt;&gt; log_file 2&gt;&amp;1</code></p>
+<p>If you want different files: <code>command1 &gt;&gt; log_file 2&gt;&gt; err_file</code></p>
+</section>
+<section id="here-documents" class="slide level3">
+<h1>Here documents</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">logger</span> -t SYSADMIN &lt;&lt;EOM
+&gt; I am going to <span class="kw">reboot</span> the system
+&gt; I&#39;m doing i<span class="kw">t</span> <span class="kw">because</span> I want to
+&gt; EOM</code></pre></div>
+<aside class="notes">
+<p>You can avoid a useless use of cat and handle mismatched quotes better with this:</p>
+<p>$ read -r -d '' VAR &lt;&lt;'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF If you don't quote the variable when you echo it, newlines are lost. Quoting it preserves them:</p>
+<p>$ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).</p>
+<p>$ read -r -d '' VAR &lt;&lt;-'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF $ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;''</p>
+</aside>
+</section>
+<section id="decisions-decisions-1" class="slide level3">
+<h1>Decisions, Decisions</h1>
+<ul>
+<li class="fragment">If, else, then</li>
+<li class="fragment">Case</li>
+<li class="fragment">Using '&amp;&amp;' and '||'</li>
+</ul>
+</section>
+<section id="round-and-round" class="slide level3">
+<h1>Round And Round</h1>
+<ul>
+<li class="fragment">For</li>
+<li class="fragment">While</li>
+<li class="fragment">Done</li>
+</ul>
+</section>
+<section id="while-loop" class="slide level3">
+<h1>While Loop</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
+
+<span class="kw">while [</span> <span class="ot">$WORD</span> <span class="ot">-ne</span> <span class="st">&quot;&quot;</span><span class="kw"> ]</span> ; <span class="kw">do</span>
+    <span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
+        <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
+    <span class="kw">esac</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="for-ever" class="slide level3">
+<h1>For Ever</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">file</span> in *.sh <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$file</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="even-more-for" class="slide level3">
+<h1>Even More For</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">((</span> i = 1 ; i &lt;= <span class="ot">$1</span> ; i++ <span class="kw">))</span> ; <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="st">&quot;I is </span><span class="ot">$i</span><span class="st">&quot;</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="expanding-variables" class="slide level3">
+<h1>Expanding Variables</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">LIST=</span><span class="st">&quot;Foo Bar Baz&quot;</span>
+<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$i</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="field-separator" class="slide level3">
+<h1>Field Separator</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">IFS=</span><span class="st">&quot;:&quot;</span>
+<span class="ot">LIST=</span><span class="st">&quot;a:b:c d&quot;</span>
+<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$i</span> 
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="error-checking" class="slide level3">
+<h1>Error Checking</h1>
+</section>
+<section id="checking-the-result-code" class="slide level3">
+<h1>Checking The Result Code</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if</span> <span class="kw">ls</span> mysillyfilename <span class="kw">;</span> <span class="kw">then</span>
+    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
+<span class="kw">fi</span>
+
+<span class="co"># checking result code variable</span>
+<span class="kw">ls</span> mysillyfilename
+<span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
+    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
+<span class="kw">fi</span>
+
+<span class="co"># using &#39;and&#39;</span>
+<span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span></code></pre></div>
+</section>
+<section id="chaining-commands" class="slide level3">
+<h1>Chaining Commands</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># and</span>
+<span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
+
+<span class="co"># or</span>
+<span class="kw">ls</span> for.sh <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists&quot;</span> <span class="kw">||</span> <span class="kw">echo</span> <span class="st">&quot;File does not exist&quot;</span>
+
+<span class="co"># not</span>
+! <span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File does not exist&quot;</span></code></pre></div>
+</section>
+<section id="maths-using-expr" class="slide level3">
+<h1>Maths Using <code>expr</code></h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="ot">WEEKS=$1</span>
+<span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
+<span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
+</section>
+<section id="improve-the-look" class="slide level3">
+<h1>Improve The Look</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">WEEKS=$1</span>
+<span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
+<span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d <span class="kw">|</span> <span class="kw">awk</span> <span class="st">&#39;{ print $1 &quot; &quot; $2 &quot; &quot; $3 &quot; &quot; $4 }&#39;</span></code></pre></div>
+</section>
+<section id="launchagents-launchdaemons" class="slide level3">
+<h1>LaunchAgents &amp; LaunchDaemons</h1>
+<ul>
+<li class="fragment">LaunchAgents run at user login</li>
+<li class="fragment">LaunchDaemons run at boot</li>
+</ul>
+</section>
+<section id="controlling-launchagents" class="slide level3">
+<h1>Controlling LaunchAgents</h1>
+<ul>
+<li class="fragment">plist file</li>
+<li class="fragment">named 'something.command.plist' e.g.</li>
+<li class="fragment">com.honestpuck.command.plist</li>
+</ul>
+</section>
+<section id="launchcontrol" class="slide level3">
+<h1>LaunchControl</h1>
+</section>
+<section id="places-to-go-people-to-see" class="slide level3">
+<h1>Places To Go, People To See</h1>
+<p>Apple have a good <code>bash</code> tutorial - http://apple.co/1MFChLE</p>
+<p>Good <code>bash</code> tutorial, also covers some tools - http://bit.ly/xw2016-2</p>
+<p>A (short) <code>grep</code> tutorial - http://bit.ly/w2016-3</p>
+<p>Longer <code>grep</code> tutorial from Bash Beginners Guide - http://bit.ly/xw2016-4</p>
+<p>Comprehensive <code>awk</code> tutorial - http://bit.ly/xw2016-5</p>
+<p>Gnus' &quot;Effective AWK Programming&quot; (can also be downloaded as HTML, text or PDF) http://bit.ly/xw2016-7</p>
+<p>Apple's Launch page http://bit.ly/xw2016-8</p>
+<p>LaunchControl http://www.soma-zone.com/LaunchControl/</p>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

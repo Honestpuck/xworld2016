@@ -1,0 +1,318 @@
+% Beginning Bash
+% Tony Williams
+% X-World 2016
+
+### Setting Up `Terminal`
+
+### Looking Good
+- A Good Profile 'Solarized'
+- Setting Font and Size
+- Setting Window Size
+
+<div class="notes">
+A good start is to make Terminal look better. You can colorize the
+output with a profile and use a better font and bigger font size.
+</div>
+
+### Before We Begin
+- Homebrew
+- coreutils
+- source-highlight
+
+<div class="notes">
+Before we start we need to install a couple of packages. We will do that
+with `homebrew`.
+
+coreutils is a pack of  general utilities from the Gnu project. We
+install these as Linux uses them.
+
+source-highlight is a package from the Gnu project that highlights 
+source code. We use it for that purpose.
+</div>
+
+### Simple Commands
+
+### `defaults` Read
+``` bash
+defaults read com.apple.dock | less
+```
+<div class="notes">
+defaults is a command that allows us to read, write, and delete Mac OS
+X user defaults from the command-line. Here we are reading the
+preferences for the dock.
+</div>
+
+### `defaults`
+``` bash
+defaults write com.apple.dock autohide -bool YES ; killall Dock
+defaults write com.apple.dock autohide -bool NO ; killall Dock
+defaults write com.apple.dock orientation "right" ; killall Dock
+defaults write com.apple.dock orientation "bottom" ; killall Dock
+```
+<div class="notes">
+Now we use 'write' to change the preferences.
+</div>
+
+### Shell Programming
+
+### Echo Stuff
+``` bash
+WORD="Foobar" ; echo $WORD
+```
+<div class="notes">
+Here we see how to set a variable and how to use one.
+</div>
+
+### Pretty Prompt
+``` bash
+PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
+```
+<div class="notes">
+The shell has a number of special variables. PS1 is one, it sets the look of your prompt.
+</div>
+
+### Alias fun
+- Commonly used options
+- Hard to remember options
+
+### Alias Examples
+``` bash
+# more useful `du` - shows human readable size of all directories
+# including dot ones and then sorts in numerical order obeying G<M<K<B rule.
+alias ddu='du -hd 1 . | gsort -h'
+# standard ls coloured
+alias ls='gls $LS_OPTIONS'
+# standard plus dot files
+alias la='gls $LS_OPTIONS -A'
+# long ls
+alias ll='gls $LS_OPTIONS -l'
+alias l='gls $LS_OPTIONS -lA'
+```
+
+### First Steps - Just A Little Function
+``` bash
+# function to send man page to preview
+manp()
+{
+man -t $* | open -f -a /Applications/Preview.app/
+}
+```
+
+### Decisions, Decisions
+- If, else, then
+- Case
+- Using '&&' and '||'
+
+### Example Decision
+``` bash
+# make root red
+if [ `id -u` = 0 ]
+then
+        PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] "
+fi
+```
+
+### Colour `ls`
+``` bash
+# colours for the Gnu ls (from coreutils)
+if [ "$TERM" != "dumb" ]; then
+    export LS_OPTIONS='--color=auto -F -G -h'
+    eval `gdircolors ~/.dircolors`
+fi
+```
+
+### Make A Case
+``` bash
+#!/bin/bash
+
+echo -n "Word: " ; read WORD
+
+case $WORD in
+    ( "Foo" )       echo "Bar" ;;
+    ( "Bar" )       echo "Foo" ;;
+    ( "FooBar" )    echo "No Way" ;;
+    ( * )           echo "FooBar" ;;
+esac
+```
+
+Using && and ||
+```bash
+[ `id -u` = 0 ] && PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] " \
+|| PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
+```
+
+### Redirection
+- Redirecting output
+  - STDOUT
+  - STDERR
+  - tee
+- Directing input
+	- Here documents
+
+<div class="notes">
+[All About Redirection](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html)
+</div>
+
+### Both OUT and ERR
+If you want to log to the same file:
+`command1 >> log_file 2>&1`
+
+If you want different files:
+`command1 >> log_file 2>> err_file`
+
+### Here documents
+```bash
+logger -t SYSADMIN <<EOM
+> I am going to reboot the system
+> I'm doing it because I want to
+> EOM
+```
+
+<div class="notes">
+You can avoid a useless use of cat and handle mismatched quotes better with this:
+
+$ read -r -d '' VAR <<'EOF'
+abc'asdf"
+$(dont-execute-this)
+foo"bar"''
+EOF
+If you don't quote the variable when you echo it, newlines are lost. Quoting it preserves them:
+
+$ echo "$VAR"
+abc'asdf"
+$(dont-execute-this)
+foo"bar"''
+If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).
+
+$ read -r -d '' VAR <<-'EOF'
+    abc'asdf"
+    $(dont-execute-this)
+    foo"bar"''
+    EOF
+$ echo "$VAR"
+abc'asdf"
+$(dont-execute-this)
+foo"bar"''
+</div>
+
+### Round And Round
+- For
+- While
+- Done
+
+### While Loop
+``` bash
+#!/bin/bash
+
+echo -n "Word: " ; read WORD
+
+while [ $WORD -ne "" ] ; do
+    case $WORD in
+        ( "Foo" )       echo "Bar" ;;
+        ( "Bar" )       echo "Foo" ;;
+        ( "FooBar" )    echo "No Way" ;;
+        ( * )           echo "FooBar" ;;
+    esac
+done
+```
+
+### For Ever
+``` bash
+for file in *.sh ; do
+    echo $file
+done
+```
+
+### Even More For
+``` bash
+for (( i = 1 ; i <= $1 ; i++ )) ; do
+    echo "I is $i"
+done
+```
+
+### Expanding Variables
+``` bash
+LIST="Foo Bar Baz"
+for i in $LIST ; do
+	echo $i
+done
+```
+
+### Field Separator
+``` bash
+IFS=":"
+LIST="a:b:c d"
+for i in $LIST ; do
+    echo $i 
+done
+```
+
+### Error Checking
+
+### Checking The Result Code
+``` bash
+if ls mysillyfilename ; then
+    echo "File exists."
+fi
+
+# checking result code variable
+ls mysillyfilename
+if [ $? = 0 ] ; then
+    echo "File exists."
+fi
+```
+
+### Maths Using `expr`
+``` bash
+#!/bin/bash
+
+WEEKS=$1
+DAYS=`expr $WEEKS '*' '7'`
+date -v +${DAYS}d 
+```
+
+### Improve The Look
+``` bash
+WEEKS=$1
+DAYS=`expr $WEEKS '*' '7'`
+date -v +${DAYS}d | awk '{ print $1 " " $2 " " $3 " " $4 }'
+```
+
+### LaunchAgents & LaunchDaemons
+- LaunchAgents run at user login
+- LaunchDaemons run at boot
+
+### Controlling LaunchAgents
+- plist file
+- named 'something.command.plist' e.g.
+  - com.honestpuck.command.plist
+  
+### LaunchControl
+
+
+
+### Places To Go, People To See
+
+Apple have a good `bash` tutorial - http://apple.co/1MFChLE
+
+Good `bash` tutorial, also covers some tools - http://bit.ly/xw2016-2
+
+A (short) `grep` tutorial - http://bit.ly/w2016-3
+
+Longer `grep` tutorial from Bash Beginners Guide - http://bit.ly/xw2016-4
+
+Comprehensive `awk` tutorial - http://bit.ly/xw2016-5
+
+Gnus' "Effective AWK Programming"
+(can also be downloaded as HTML, text or PDF)
+http://bit.ly/xw2016-7
+
+Apple's Launch page
+http://bit.ly/xw2016-8
+
+LaunchControl
+http://www.soma-zone.com/LaunchControl/
+
+
+
+

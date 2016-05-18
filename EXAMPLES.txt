@@ -1,0 +1,76 @@
+#
+
+#
+# Pretty prompt
+#
+PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
+
+#
+# Colour man
+#
+# if we're going to view man pages in the Terminal, at least let's
+# colour highlight them
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;37m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+#
+# Alias Examples
+#
+# more useful `du` - shows human readable size of all directories in current directory
+# including dot ones and then sorts in numerical order obeying G < M < K < B rule.
+alias ddu='du -hd 1 . | gsort -h'
+# standard ls coloured
+alias ls='gls $LS_OPTIONS'
+# standard plus dot files
+alias la='gls $LS_OPTIONS -A'
+# long ls
+alias ll='gls $LS_OPTIONS -l'
+alias l='gls $LS_OPTIONS -lA'
+
+#
+# Just a little function
+#
+# function to send man page to preview
+manp()
+{
+man -t $* | open -f -a /Applications/Preview.app/
+}
+
+#
+# Example Decision
+#
+# make root red
+if [ `id -u` = 0 ]
+then
+        PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] "
+fi
+
+#
+# Colour ls
+#
+# colours for the Gnu ls (from coreutils)
+if [ "$TERM" != "dumb" ]; then
+    export LS_OPTIONS='--color=auto -F -G -h'
+    eval `gdircolors ~/.dircolors`
+fi
+
+#
+# Make A Case
+#
+#!/bin/bash
+
+echo -n "Word: " ; read WORD
+
+case $WORD in
+    ( "Foo" )       echo "Bar" ;;
+    ( "Bar" )       echo "Foo" ;;
+    ( "FooBar" )    echo "No Way" ;;
+    ( * )           echo "FooBar" ;;
+esac
+
+
