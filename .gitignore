@@ -1,5 +1,8 @@
 .DS_Store
 
+# emacs pandoc mode settings file
+.xworld2016-bash.md.revealjs.pandoc
+
 # pandoc and emacs backups
 *.bak
 *~
