@@ -89,11 +89,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li class="fragment">Homebrew</li>
 <li class="fragment">coreutils</li>
+<li class="fragment">dockutil</li>
 <li class="fragment">source-highlight</li>
 </ul>
 <aside class="notes">
 <p>Before we start we need to install a couple of packages. We will do that with <code>homebrew</code>.</p>
 <p>coreutils is a pack of general utilities from the Gnu project. We install these as Linux uses them.</p>
+<p>dockutil is a Python script to manipulate the Dock. We will use it in a script later.</p>
 <p>source-highlight is a package from the Gnu project that highlights source code. We use it for that purpose.</p>
 </aside>
 </section>
@@ -104,7 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><code>defaults</code> Read</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">defaults</span> read com.apple.dock <span class="kw">|</span> <span class="kw">less</span></code></pre></div>
 <aside class="notes">
-<p>defaults is a command that allows us to read, write, and delete Mac OS X user defaults from the command-line. Here we are reading the preferences for the dock.</p>
+<p><code>defaults</code> is a command that allows us to read, write, and delete Mac OS X user defaults from the command-line. Here we are reading the preferences for the dock.</p>
 </aside>
 </section>
 <section id="defaults" class="slide level3">
@@ -114,7 +116,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">defaults</span> write com.apple.dock orientation <span class="st">&quot;right&quot;</span> <span class="kw">;</span> <span class="kw">killall</span> Dock
 <span class="kw">defaults</span> write com.apple.dock orientation <span class="st">&quot;bottom&quot;</span> <span class="kw">;</span> <span class="kw">killall</span> Dock</code></pre></div>
 <aside class="notes">
-<p>Now we use 'write' to change the preferences.</p>
+<p>Now we use 'write' to change the preferences. After we type the first one we can use line editing to get the next 3 lines. C-a goes to start of the line, C-e goes to the end. Esc-f goes forward a word and Esc-b goes a word back. Esc-d deletes the next word.</p>
 </aside>
 </section>
 <section id="shell-programming" class="slide level3">
@@ -124,7 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Echo Stuff</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">WORD=</span><span class="st">&quot;Foobar&quot;</span> ; <span class="kw">echo</span> <span class="ot">$WORD</span></code></pre></div>
 <aside class="notes">
-<p>Here we see how to set a variable and how to use one.</p>
+<p>Here we see how to set a variable and how to use one. Notice the semi-colon? We use a semi-colon to seperate two commands on the same line.</p>
 </aside>
 </section>
 <section id="pretty-prompt" class="slide level3">
@@ -187,7 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="colour-ls" class="slide level3">
 <h1>Colour <code>ls</code></h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># colours for the Gnu ls (from coreutils)</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="co"># colours for the Gnu ls (from coreutils)</span>
 <span class="kw">if [</span> <span class="st">&quot;</span><span class="ot">$TERM</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;dumb&quot;</span><span class="kw"> ]</span>; <span class="kw">then</span>
     <span class="kw">export</span> <span class="ot">LS_OPTIONS=</span><span class="st">&#39;--color=auto -F -G -h&#39;</span>
     <span class="kw">eval</span> <span class="kw">`gdircolors</span> ~/.dircolors<span class="kw">`</span>
@@ -208,11 +210,84 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
     <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
 <span class="kw">esac</span></code></pre></div>
+<aside class="notes">
+<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return.</p>
+</aside>
 </section>
 <section id="using-and" class="slide level3">
 <h1>Using &amp;&amp; and ||</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
 <span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
+<aside class="notes">
+<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR.</p>
+</aside>
+</section>
+<section id="round-and-round" class="slide level3">
+<h1>Round And Round</h1>
+<ul>
+<li class="fragment">For</li>
+<li class="fragment">While</li>
+<li class="fragment">Done</li>
+</ul>
+</section>
+<section id="while-loop" class="slide level3">
+<h1>While Loop</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
+
+<span class="kw">while [</span> <span class="ot">$WORD</span> <span class="ot">-ne</span> <span class="st">&quot;&quot;</span><span class="kw"> ]</span> ; <span class="kw">do</span>
+    <span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
+        <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
+    <span class="kw">esac</span>
+<span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>A while loop. So long as the statement is true it will loop forever.</p>
+</aside>
+</section>
+<section id="for-ever" class="slide level3">
+<h1>For Ever</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">file</span> in *.sh <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$file</span>
+<span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>A for loop. The echo statement will run for each item in <code>*.sh</code></p>
+</aside>
+</section>
+<section id="even-more-for" class="slide level3">
+<h1>Even More For</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">((</span> i = 1 ; i &lt;= <span class="ot">$1</span> ; i++ <span class="kw">))</span> ; <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="st">&quot;I is </span><span class="ot">$i</span><span class="st">&quot;</span>
+<span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>This is the C style <code>for</code>. There are the 3 parts. The first is run at the beginning of the <code>for</code>. The second is the test which is done at the top of the loop (so it is possible for the loop to never run). The third part is run at the bottom of the loop.</p>
+</aside>
+</section>
+<section id="expanding-variables" class="slide level3">
+<h1>Expanding Variables</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">LIST=</span><span class="st">&quot;Foo Bar Baz&quot;</span>
+<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$i</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="field-separator" class="slide level3">
+<h1>Field Separator</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">IFS=</span><span class="st">&quot;:&quot;</span>
+<span class="ot">LIST=</span><span class="st">&quot;a:b:c d&quot;</span>
+<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$i</span> 
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="special-characters-in-strings" class="slide level3">
+<h1>Special Characters In Strings</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">IFS=</span><span class="st">$&#39;</span><span class="dt">\t</span><span class="st">&#39;</span>
+<span class="ot">LIST=</span><span class="st">$&#39;a</span><span class="dt">\t</span><span class="st">b</span><span class="dt">\t</span><span class="st">c d&#39;</span>
+<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">echo</span> <span class="ot">$i</span> 
+<span class="kw">done</span></code></pre></div>
 </section>
 <section id="redirection" class="slide level3">
 <h1>Redirection</h1>
@@ -247,56 +322,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>$ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).</p>
 <p>$ read -r -d '' VAR &lt;&lt;-'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF $ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;''</p>
 </aside>
-</section>
-<section id="round-and-round" class="slide level3">
-<h1>Round And Round</h1>
-<ul>
-<li class="fragment">For</li>
-<li class="fragment">While</li>
-<li class="fragment">Done</li>
-</ul>
-</section>
-<section id="while-loop" class="slide level3">
-<h1>While Loop</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
-
-<span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
-
-<span class="kw">while [</span> <span class="ot">$WORD</span> <span class="ot">-ne</span> <span class="st">&quot;&quot;</span><span class="kw"> ]</span> ; <span class="kw">do</span>
-    <span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
-        <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
-        <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
-        <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
-        <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
-    <span class="kw">esac</span>
-<span class="kw">done</span></code></pre></div>
-</section>
-<section id="for-ever" class="slide level3">
-<h1>For Ever</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">file</span> in *.sh <span class="kw">;</span> <span class="kw">do</span>
-    <span class="kw">echo</span> <span class="ot">$file</span>
-<span class="kw">done</span></code></pre></div>
-</section>
-<section id="even-more-for" class="slide level3">
-<h1>Even More For</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">((</span> i = 1 ; i &lt;= <span class="ot">$1</span> ; i++ <span class="kw">))</span> ; <span class="kw">do</span>
-    <span class="kw">echo</span> <span class="st">&quot;I is </span><span class="ot">$i</span><span class="st">&quot;</span>
-<span class="kw">done</span></code></pre></div>
-</section>
-<section id="expanding-variables" class="slide level3">
-<h1>Expanding Variables</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">LIST=</span><span class="st">&quot;Foo Bar Baz&quot;</span>
-<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
-    <span class="kw">echo</span> <span class="ot">$i</span>
-<span class="kw">done</span></code></pre></div>
-</section>
-<section id="field-separator" class="slide level3">
-<h1>Field Separator</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">IFS=</span><span class="st">&quot;:&quot;</span>
-<span class="ot">LIST=</span><span class="st">&quot;a:b:c d&quot;</span>
-<span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
-    <span class="kw">echo</span> <span class="ot">$i</span> 
-<span class="kw">done</span></code></pre></div>
 </section>
 <section id="error-checking" class="slide level3">
 <h1>Error Checking</h1>

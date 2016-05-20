@@ -54,7 +54,10 @@ defaults write com.apple.dock orientation "right" ; killall Dock
 defaults write com.apple.dock orientation "bottom" ; killall Dock
 ```
 <div class="notes">
-Now we use 'write' to change the preferences.
+Now we use 'write' to change the preferences. After we type the first
+one we can use line editing to get the next 3 lines. C-a goes to start
+of the line, C-e goes to the end. Esc-f goes forward a word and Esc-b
+goes a word back. Esc-d deletes the next word.
 </div>
 
 ### Shell Programming
@@ -161,11 +164,97 @@ case $WORD in
     ( * )           echo "FooBar" ;;
 esac
 ```
+<div class="notes">
+Here is a case statement. If the variable matches the value in the
+parentheses it runs the statement on that line. The value `( * )`
+matches everything. The `read` statement reads from the command line
+until you press return.
+</div>
 
 ### Using && and ||
 ```bash
 [ `id -u` = 0 ] && PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] " \
 || PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
+```
+<div class="notes">
+Here we use logic operators rather than if and else. This is perfect
+if you only want to run single commands. It works because the shell is
+"lazy" and won't run the second command in an AND when the first is
+false, then because the first set of statements is false it will run
+the command after the OR.
+</div>
+
+### Round And Round
+- For
+- While
+- Done
+
+### While Loop
+``` bash
+#!/bin/bash
+
+echo -n "Word: " ; read WORD
+
+while [ $WORD -ne "" ] ; do
+    case $WORD in
+        ( "Foo" )       echo "Bar" ;;
+        ( "Bar" )       echo "Foo" ;;
+        ( "FooBar" )    echo "No Way" ;;
+        ( * )           echo "FooBar" ;;
+    esac
+done
+```
+<div class="notes">
+A while loop. So long as the statement is true it will loop forever.
+</div>
+
+### For Ever
+``` bash
+for file in *.sh ; do
+    echo $file
+done
+```
+<div class="notes">
+A for loop. The echo statement will run for each item in `*.sh`
+</div>
+
+### Even More For
+``` bash
+for (( i = 1 ; i <= $1 ; i++ )) ; do
+    echo "I is $i"
+done
+```
+<div class="notes">
+This is the C style `for`. There are the 3 parts. The first is run at
+the beginning of the `for`. The second is the test which is done at the
+top of the loop (so it is possible for the loop to never run). The
+third part is run at the bottom of the loop. 
+</div>
+
+### Expanding Variables
+``` bash
+LIST="Foo Bar Baz"
+for i in $LIST ; do
+	echo $i
+done
+```
+
+### Field Separator
+``` bash
+IFS=":"
+LIST="a:b:c d"
+for i in $LIST ; do
+    echo $i 
+done
+```
+
+### Special Characters In Strings
+``` bash
+IFS=$'\t'
+LIST=$'a\tb\tc d'
+for i in $LIST ; do
+    echo $i 
+done
 ```
 
 ### Redirection
@@ -222,57 +311,6 @@ $(dont-execute-this)
 foo"bar"''
 </div>
 
-### Round And Round
-- For
-- While
-- Done
-
-### While Loop
-``` bash
-#!/bin/bash
-
-echo -n "Word: " ; read WORD
-
-while [ $WORD -ne "" ] ; do
-    case $WORD in
-        ( "Foo" )       echo "Bar" ;;
-        ( "Bar" )       echo "Foo" ;;
-        ( "FooBar" )    echo "No Way" ;;
-        ( * )           echo "FooBar" ;;
-    esac
-done
-```
-
-### For Ever
-``` bash
-for file in *.sh ; do
-    echo $file
-done
-```
-
-### Even More For
-``` bash
-for (( i = 1 ; i <= $1 ; i++ )) ; do
-    echo "I is $i"
-done
-```
-
-### Expanding Variables
-``` bash
-LIST="Foo Bar Baz"
-for i in $LIST ; do
-	echo $i
-done
-```
-
-### Field Separator
-``` bash
-IFS=":"
-LIST="a:b:c d"
-for i in $LIST ; do
-    echo $i 
-done
-```
 
 ### Error Checking
 
