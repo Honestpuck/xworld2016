@@ -143,9 +143,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="alias-examples" class="slide level3">
 <h1>Alias Examples</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># more useful `du` - shows human readable size of all directories</span>
-<span class="co"># including dot ones and then sorts in numerical order obeying G&lt;M&lt;K&lt;B rule.</span>
-<span class="kw">alias</span> ddu=<span class="st">&#39;du -hd 1 . | gsort -h&#39;</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">LS_OPTIONS=</span><span class="st">&quot;--color=auto -F -G&quot;</span>
 <span class="co"># standard ls coloured</span>
 <span class="kw">alias</span> ls=<span class="st">&#39;gls $LS_OPTIONS&#39;</span>
 <span class="co"># standard plus dot files</span>
@@ -153,14 +151,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co"># long ls</span>
 <span class="kw">alias</span> ll=<span class="st">&#39;gls $LS_OPTIONS -l&#39;</span>
 <span class="kw">alias</span> l=<span class="st">&#39;gls $LS_OPTIONS -lA&#39;</span></code></pre></div>
+<aside class="notes">
+<p>Here we have some aliases for a command with long and hard to remember options. An alias becomes a literal command so you can have options and arguments after it, but you can't pass an argument to the middle of it. This requires a function.</p>
+</aside>
 </section>
-<section id="fuirst-steps---just-a-little-function" class="slide level3">
-<h1>Fuirst Steps - Just A Little Function</h1>
+<section id="first-steps---just-a-little-function" class="slide level3">
+<h1>First Steps - Just A Little Function</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># function to send man page to preview</span>
 <span class="fu">manp()</span>
 <span class="kw">{</span>
 <span class="kw">man</span> -t <span class="ot">$*</span> <span class="kw">|</span> <span class="kw">open</span> -f -a /Applications/Preview.app/
 <span class="kw">}</span></code></pre></div>
+<aside class="notes">
+<p>Here's a function that allows multiple arguments in the middle. The <code>$*</code> will be replaced by all the arguments on the command line.</p>
+</aside>
 </section>
 <section id="decisions-decisions" class="slide level3">
 <h1>Decisions, Decisions</h1>
@@ -177,6 +181,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">then</span>
         <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span>
 <span class="kw">fi</span></code></pre></div>
+<aside class="notes">
+<p>An if statement. In this one we decide if we want to change the colour of the prompt depending if we are <code>root</code> or not. Not the <code>id -u</code> between the backticks. When we place a command between backticks the command is run and the output is used. Here we have the <code>id</code> shell command print our user ID, which is 0 if we are root.</p>
+</aside>
 </section>
 <section id="colour-ls" class="slide level3">
 <h1>Colour <code>ls</code></h1>
@@ -185,6 +192,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">export</span> <span class="ot">LS_OPTIONS=</span><span class="st">&#39;--color=auto -F -G -h&#39;</span>
     <span class="kw">eval</span> <span class="kw">`gdircolors</span> ~/.dircolors<span class="kw">`</span>
 <span class="kw">fi</span></code></pre></div>
+<aside class="notes">
+<p>Here's another if statement. Notice that this time we don't have a return before the <code>then</code>, instead we have a semi-colon, <code>;</code> to represent the same thing. On any line we can replace a return with a semi-colon.</p>
+</aside>
 </section>
 <section id="make-a-case" class="slide level3">
 <h1>Make A Case</h1>
@@ -198,13 +208,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
     <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
 <span class="kw">esac</span></code></pre></div>
-<p>Using &amp;&amp; and ||</p>
+</section>
+<section id="using-and" class="slide level3">
+<h1>Using &amp;&amp; and ||</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
 <span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
 </section>
 <section id="redirection" class="slide level3">
 <h1>Redirection</h1>
-<p><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html">All About Redirection</a> - Redirecting output - STDOUT - STDERR - tee - Directing input - From a file - Here documents - Here variable</p>
+<ul>
+<li class="fragment">Redirecting output</li>
+<li class="fragment">STDOUT</li>
+<li class="fragment">STDERR</li>
+<li class="fragment">tee</li>
+<li class="fragment">Directing input
+<ul>
+<li class="fragment">Here documents</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html">All About Redirection</a></p>
+</aside>
 </section>
 <section id="both-out-and-err" class="slide level3">
 <h1>Both OUT and ERR</h1>
@@ -223,14 +247,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>$ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).</p>
 <p>$ read -r -d '' VAR &lt;&lt;-'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF $ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;''</p>
 </aside>
-</section>
-<section id="decisions-decisions-1" class="slide level3">
-<h1>Decisions, Decisions</h1>
-<ul>
-<li class="fragment">If, else, then</li>
-<li class="fragment">Case</li>
-<li class="fragment">Using '&amp;&amp;' and '||'</li>
-</ul>
 </section>
 <section id="round-and-round" class="slide level3">
 <h1>Round And Round</h1>
@@ -295,21 +311,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">ls</span> mysillyfilename
 <span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
     <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-<span class="kw">fi</span>
-
-<span class="co"># using &#39;and&#39;</span>
-<span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span></code></pre></div>
-</section>
-<section id="chaining-commands" class="slide level3">
-<h1>Chaining Commands</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># and</span>
-<span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-
-<span class="co"># or</span>
-<span class="kw">ls</span> for.sh <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File exists&quot;</span> <span class="kw">||</span> <span class="kw">echo</span> <span class="st">&quot;File does not exist&quot;</span>
-
-<span class="co"># not</span>
-! <span class="kw">ls</span> mysillyfilename <span class="kw">&amp;&amp;</span> <span class="kw">echo</span> <span class="st">&quot;File does not exist&quot;</span></code></pre></div>
+<span class="kw">fi</span></code></pre></div>
 </section>
 <section id="maths-using-expr" class="slide level3">
 <h1>Maths Using <code>expr</code></h1>

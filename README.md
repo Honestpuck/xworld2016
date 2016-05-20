@@ -6,6 +6,7 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 
 | File | Description |
 | ------ | ------------------------------------------ |
+| Input-Font.zip | The Input font - my favourite for Terminal |
 | README.md | This file |
 | case.sh | Example case statement |
 | efor.sh| Example of C style for loop |
@@ -15,6 +16,7 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | pandoc.sh | command line to run Pandoc and create slides |
 | reveal.js/* | Slideshow software |
 | slides.html | The presentation slides |
+| solarized.zip | My favourite theme for Terminal |
 | weeks.sh |  Example of maths using `expr` |
 | weeks2.sh | Pretty version of `weeks.sh` using `awk` |
 | while.sh | Example of using `while` |

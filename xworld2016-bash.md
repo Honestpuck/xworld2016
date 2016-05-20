@@ -17,6 +17,7 @@ output with a profile and use a better font and bigger font size.
 ### Before We Begin
 - Homebrew
 - coreutils
+- dockutil
 - source-highlight
 
 <div class="notes">
@@ -25,6 +26,9 @@ with `homebrew`.
 
 coreutils is a pack of  general utilities from the Gnu project. We
 install these as Linux uses them.
+
+dockutil is a Python script to manipulate the Dock. We will
+use it in a script later.
 
 source-highlight is a package from the Gnu project that highlights 
 source code. We use it for that purpose.
@@ -37,7 +41,7 @@ source code. We use it for that purpose.
 defaults read com.apple.dock | less
 ```
 <div class="notes">
-defaults is a command that allows us to read, write, and delete Mac OS
+`defaults` is a command that allows us to read, write, and delete Mac OS
 X user defaults from the command-line. Here we are reading the
 preferences for the dock.
 </div>
@@ -60,7 +64,9 @@ Now we use 'write' to change the preferences.
 WORD="Foobar" ; echo $WORD
 ```
 <div class="notes">
-Here we see how to set a variable and how to use one.
+Here we see how to set a variable and how to use one. Notice the
+semi-colon? We use a semi-colon to seperate two commands on the same
+line.
 </div>
 
 ### Pretty Prompt
@@ -129,12 +135,18 @@ command print our user ID, which is 0 if we are root.
 
 ### Colour `ls`
 ``` bash
-# colours for the Gnu ls (from coreutils)
+ # colours for the Gnu ls (from coreutils)
 if [ "$TERM" != "dumb" ]; then
     export LS_OPTIONS='--color=auto -F -G -h'
     eval `gdircolors ~/.dircolors`
 fi
 ```
+<div class="notes">
+Here's another if statement. Notice that this time we don't have
+a return before the `then`, instead we have a semi-colon, `;` to
+represent the same thing. On any line we can replace a return with a
+semi-colon.
+</div>
 
 ### Make A Case
 ``` bash
