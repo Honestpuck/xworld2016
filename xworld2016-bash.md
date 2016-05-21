@@ -238,6 +238,9 @@ for i in $LIST ; do
 	echo $i
 done
 ```
+<div class="notes">
+We can also loop through items in a variable.
+</div>
 
 ### Field Separator
 ``` bash
@@ -247,6 +250,11 @@ for i in $LIST ; do
     echo $i 
 done
 ```
+<div class="notes">
+What defines an "item" is the Internal Field Seperator or IFS. Here we
+change it to a colon.
+</div>
+
 
 ### Special Characters In Strings
 ``` bash
@@ -256,6 +264,11 @@ for i in $LIST ; do
     echo $i 
 done
 ```
+<div class="notes">
+You can change the IFS to a special character such as a tab or a
+newline. To get either in a string you can surround the string like
+this and then `\t` is replaced by tab and `\n` is replaced by a newline.
+</div>
 
 ### Redirection
 - Redirecting output
@@ -266,7 +279,6 @@ done
 	- Here documents
 
 <div class="notes">
-[All About Redirection](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html)
 </div>
 
 ### Both OUT and ERR
@@ -285,32 +297,7 @@ logger -t SYSADMIN <<EOM
 ```
 
 <div class="notes">
-You can avoid a useless use of cat and handle mismatched quotes better with this:
-
-$ read -r -d '' VAR <<'EOF'
-abc'asdf"
-$(dont-execute-this)
-foo"bar"''
-EOF
-If you don't quote the variable when you echo it, newlines are lost. Quoting it preserves them:
-
-$ echo "$VAR"
-abc'asdf"
-$(dont-execute-this)
-foo"bar"''
-If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).
-
-$ read -r -d '' VAR <<-'EOF'
-    abc'asdf"
-    $(dont-execute-this)
-    foo"bar"''
-    EOF
-$ echo "$VAR"
-abc'asdf"
-$(dont-execute-this)
-foo"bar"''
 </div>
-
 
 ### Error Checking
 
@@ -351,10 +338,9 @@ date -v +${DAYS}d | awk '{ print $1 " " $2 " " $3 " " $4 }'
 - plist file
 - named 'something.command.plist' e.g.
   - com.honestpuck.command.plist
-  
-### LaunchControl
 
-
+### Putting it all together
+ - dock_setup.sh
 
 ### Places To Go, People To See
 
@@ -371,6 +357,9 @@ Comprehensive `awk` tutorial - http://bit.ly/xw2016-5
 Gnus' "Effective AWK Programming"
 (can also be downloaded as HTML, text or PDF)
 http://bit.ly/xw2016-7
+
+All About Redirection
+http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html
 
 Apple's Launch page
 http://bit.ly/xw2016-8

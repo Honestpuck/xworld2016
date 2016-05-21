@@ -8,8 +8,7 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | ------ | ------------------------------------------ |
 | Input-Font.zip | The Input font - my favourite for Terminal |
 | README.md | This file |
-| bash_profile | Some parts of my .bash_profile file for the students
-to use . |
+| bash_profile | Some parts of my .bash_profile file |
 | case.sh | Example case statement |
 | efor.sh| Example of C style for loop |
 | expand.sh | Example of variable expansion |
