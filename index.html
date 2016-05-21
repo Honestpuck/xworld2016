@@ -76,9 +76,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="looking-good" class="slide level3">
 <h1>Looking Good</h1>
 <ul>
-<li class="fragment">A Good Profile 'Solarized'</li>
-<li class="fragment">Setting Font and Size</li>
-<li class="fragment">Setting Window Size</li>
+<li>A Good Profile 'Solarized'</li>
+<li>Setting Font and Size</li>
+<li>Setting Window Size</li>
 </ul>
 <aside class="notes">
 <p>A good start is to make Terminal look better. You can colorize the output with a profile and use a better font and bigger font size.</p>
@@ -87,10 +87,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="before-we-begin" class="slide level3">
 <h1>Before We Begin</h1>
 <ul>
-<li class="fragment">Homebrew</li>
-<li class="fragment">coreutils</li>
-<li class="fragment">dockutil</li>
-<li class="fragment">source-highlight</li>
+<li>Homebrew</li>
+<li>coreutils</li>
+<li>dockutil</li>
+<li>source-highlight</li>
 </ul>
 <aside class="notes">
 <p>Before we start we need to install a couple of packages. We will do that with <code>homebrew</code>.</p>
@@ -139,8 +139,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="alias-fun" class="slide level3">
 <h1>Alias fun</h1>
 <ul>
-<li class="fragment">Commonly used options</li>
-<li class="fragment">Hard to remember options</li>
+<li>Commonly used options</li>
+<li>Hard to remember options</li>
 </ul>
 </section>
 <section id="alias-examples" class="slide level3">
@@ -171,9 +171,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="decisions-decisions" class="slide level3">
 <h1>Decisions, Decisions</h1>
 <ul>
-<li class="fragment">If, else, then</li>
-<li class="fragment">Case</li>
-<li class="fragment">Using '&amp;&amp;' and '||'</li>
+<li>If, else, then</li>
+<li>Case</li>
+<li>Using '&amp;&amp;' and '||'</li>
 </ul>
 </section>
 <section id="example-decision" class="slide level3">
@@ -222,12 +222,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR.</p>
 </aside>
 </section>
+<section id="checking-the-result-code" class="slide level3">
+<h1>Checking The Result Code</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if</span> <span class="kw">ls</span> mysillyfilename <span class="kw">;</span> <span class="kw">then</span>
+    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
+<span class="kw">fi</span>
+
+<span class="co"># checking result code variable</span>
+<span class="kw">ls</span> mysillyfilename
+<span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
+    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
+<span class="kw">fi</span></code></pre></div>
+</section>
+<section id="checking-a-file" class="slide level3">
+<h1>Checking A File</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if [</span> <span class="ot">-e</span> README.md<span class="kw"> ]</span> ; <span class="kw">then</span>
+    <span class="kw">echo</span> <span class="st">&quot;Readme exists&quot;</span>
+<span class="kw">fi</span></code></pre></div>
+</section>
+<section id="file-checks" class="slide level3">
+<h1>File Checks</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-a</td>
+<td style="text-align: left;">if file exists</td>
+<td style="text-align: center;">-d</td>
+<td style="text-align: left;">if file is directory</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">-e</td>
+<td style="text-align: left;">if file exists</td>
+<td style="text-align: center;">-r</td>
+<td style="text-align: left;">if file is readable</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-w</td>
+<td style="text-align: left;">if file is writeable</td>
+<td style="text-align: center;">-x</td>
+<td style="text-align: left;">if file is executable</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">-O</td>
+<td style="text-align: left;">is owned by the user</td>
+<td style="text-align: center;">-G</td>
+<td style="text-align: left;">is owned by the group</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="round-and-round" class="slide level3">
 <h1>Round And Round</h1>
 <ul>
-<li class="fragment">For</li>
-<li class="fragment">While</li>
-<li class="fragment">Done</li>
+<li>For</li>
+<li>While</li>
+<li>Done</li>
 </ul>
 </section>
 <section id="while-loop" class="slide level3">
@@ -272,6 +321,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
     <span class="kw">echo</span> <span class="ot">$i</span>
 <span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>We can also loop through items in a variable.</p>
+</aside>
 </section>
 <section id="field-separator" class="slide level3">
 <h1>Field Separator</h1>
@@ -280,6 +332,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
     <span class="kw">echo</span> <span class="ot">$i</span> 
 <span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>What defines an &quot;item&quot; is the Internal Field Seperator or IFS. Here we change it to a colon.</p>
+</aside>
 </section>
 <section id="special-characters-in-strings" class="slide level3">
 <h1>Special Characters In Strings</h1>
@@ -288,21 +343,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">for</span> <span class="kw">i</span> in <span class="ot">$LIST</span> <span class="kw">;</span> <span class="kw">do</span>
     <span class="kw">echo</span> <span class="ot">$i</span> 
 <span class="kw">done</span></code></pre></div>
+<aside class="notes">
+<p>You can change the IFS to a special character such as a tab or a newline. To get either in a string you can surround the string like this and then <code>\t</code> is replaced by tab and <code>\n</code> is replaced by a newline.</p>
+</aside>
 </section>
 <section id="redirection" class="slide level3">
 <h1>Redirection</h1>
 <ul>
-<li class="fragment">Redirecting output</li>
-<li class="fragment">STDOUT</li>
-<li class="fragment">STDERR</li>
-<li class="fragment">tee</li>
-<li class="fragment">Directing input
+<li>Redirecting output</li>
+<li>STDOUT</li>
+<li>STDERR</li>
+<li>tee</li>
+<li>Directing input
 <ul>
-<li class="fragment">Here documents</li>
+<li>Here documents</li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html">All About Redirection</a></p>
+
 </aside>
 </section>
 <section id="both-out-and-err" class="slide level3">
@@ -317,26 +375,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 &gt; I&#39;m doing i<span class="kw">t</span> <span class="kw">because</span> I want to
 &gt; EOM</code></pre></div>
 <aside class="notes">
-<p>You can avoid a useless use of cat and handle mismatched quotes better with this:</p>
-<p>$ read -r -d '' VAR &lt;&lt;'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF If you don't quote the variable when you echo it, newlines are lost. Quoting it preserves them:</p>
-<p>$ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' If you want to use indentation for readability in the source code, use a dash after the less-thans. The indentation must be done using only tabs (no spaces).</p>
-<p>$ read -r -d '' VAR &lt;&lt;-'EOF' abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;'' EOF $ echo &quot;$VAR&quot; abc'asdf&quot; $(dont-execute-this) foo&quot;bar&quot;''</p>
-</aside>
-</section>
-<section id="error-checking" class="slide level3">
-<h1>Error Checking</h1>
-</section>
-<section id="checking-the-result-code" class="slide level3">
-<h1>Checking The Result Code</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if</span> <span class="kw">ls</span> mysillyfilename <span class="kw">;</span> <span class="kw">then</span>
-    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-<span class="kw">fi</span>
 
-<span class="co"># checking result code variable</span>
-<span class="kw">ls</span> mysillyfilename
-<span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
-    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-<span class="kw">fi</span></code></pre></div>
+</aside>
 </section>
 <section id="maths-using-expr" class="slide level3">
 <h1>Maths Using <code>expr</code></h1>
@@ -344,6 +384,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="ot">WEEKS=$1</span>
 <span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
+<span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
+</section>
+<section id="maths-using-expansion" class="slide level3">
+<h1>Maths Using Expansion</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="ot">WEEKS=$1</span>
+<span class="ot">DAYS=(</span>(<span class="ot">$WEEKS</span>*7<span class="ot">)</span>)
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
 </section>
 <section id="improve-the-look" class="slide level3">
@@ -355,20 +403,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="launchagents-launchdaemons" class="slide level3">
 <h1>LaunchAgents &amp; LaunchDaemons</h1>
 <ul>
-<li class="fragment">LaunchAgents run at user login</li>
-<li class="fragment">LaunchDaemons run at boot</li>
+<li>LaunchAgents run at user login</li>
+<li>LaunchDaemons run at boot</li>
 </ul>
 </section>
 <section id="controlling-launchagents" class="slide level3">
 <h1>Controlling LaunchAgents</h1>
 <ul>
-<li class="fragment">plist file</li>
-<li class="fragment">named 'something.command.plist' e.g.</li>
-<li class="fragment">com.honestpuck.command.plist</li>
+<li>plist file</li>
+<li>named 'something.command.plist' e.g.</li>
+<li>com.honestpuck.command.plist</li>
 </ul>
 </section>
-<section id="launchcontrol" class="slide level3">
-<h1>LaunchControl</h1>
+<section id="putting-it-all-together" class="slide level3">
+<h1>Putting it all together</h1>
+<ul>
+<li>dock_setup.sh</li>
+</ul>
 </section>
 <section id="places-to-go-people-to-see" class="slide level3">
 <h1>Places To Go, People To See</h1>
@@ -378,6 +429,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Longer <code>grep</code> tutorial from Bash Beginners Guide - http://bit.ly/xw2016-4</p>
 <p>Comprehensive <code>awk</code> tutorial - http://bit.ly/xw2016-5</p>
 <p>Gnus' &quot;Effective AWK Programming&quot; (can also be downloaded as HTML, text or PDF) http://bit.ly/xw2016-7</p>
+<p>All About Redirection http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html</p>
 <p>Apple's Launch page http://bit.ly/xw2016-8</p>
 <p>LaunchControl http://www.soma-zone.com/LaunchControl/</p>
 </section>

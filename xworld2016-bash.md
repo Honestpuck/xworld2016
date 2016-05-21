@@ -184,6 +184,35 @@ false, then because the first set of statements is false it will run
 the command after the OR.
 </div>
 
+### Checking The Result Code
+``` bash
+if ls mysillyfilename ; then
+    echo "File exists."
+fi
+
+# checking result code variable
+ls mysillyfilename
+if [ $? = 0 ] ; then
+    echo "File exists."
+fi
+```
+
+### Checking A File
+```bash
+if [ -e README.md ] ; then
+	echo "Readme exists"
+fi
+```
+
+### File Checks
+
+|        |                   |        |                          |
+|:----:|:------------|:----:|:----------------|
+| -a | if file exists | -d | if file is directory |
+| -e | if file exists | -r | if file is readable |
+| -w | if file is writeable | -x | if file is executable |
+| -O | is owned by the user | -G | is owned by the group |
+
 ### Round And Round
 - For
 - While
@@ -299,27 +328,21 @@ logger -t SYSADMIN <<EOM
 <div class="notes">
 </div>
 
-### Error Checking
-
-### Checking The Result Code
-``` bash
-if ls mysillyfilename ; then
-    echo "File exists."
-fi
-
-# checking result code variable
-ls mysillyfilename
-if [ $? = 0 ] ; then
-    echo "File exists."
-fi
-```
-
 ### Maths Using `expr`
 ``` bash
 #!/bin/bash
 
 WEEKS=$1
 DAYS=`expr $WEEKS '*' '7'`
+date -v +${DAYS}d 
+```
+
+### Maths Using Expansion
+``` bash
+#!/bin/bash
+
+WEEKS=$1
+DAYS=(($WEEKS*7))
 date -v +${DAYS}d 
 ```
 

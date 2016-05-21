@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pandoc -t revealjs -i xworld2016-bash.md --slide-level=3 -s -V theme=white -o slides.html
-
+pandoc -t revealjs xworld2016-bash.md -f markdown+pipe_tables --slide-level=3 -s -V theme=white -o index.html 
+ 

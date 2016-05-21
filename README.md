@@ -16,9 +16,9 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | expand.sh | Example of variable expansion |
 | for.sh | Example for loop |
 | func.sh | Example of a function with aguments |
+| index.html | The presentation slides |
 | pandoc.sh | command line to run Pandoc and create slides |
 | reveal.js/* | Slideshow software |
-| slides.html | The presentation slides |
 | solarized.zip | My favourite theme for Terminal |
 | weeks.sh |  Example of maths using `expr` |
 | weeks2.sh | Pretty version of `weeks.sh` using `awk` |
