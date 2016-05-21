@@ -7,9 +7,11 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | File | Description |
 | ------ | ------------------------------------------ |
 | Input-Font.zip | The Input font - my favourite for Terminal |
+| Lingon X.zip | Lingon utility for LaunchAgents |
 | README.md | This file |
 | bash_profile | Some parts of my .bash_profile file |
 | case.sh | Example case statement |
+| dock_setup.sh | Example entire script we use as LaunchAgent |
 | efor.sh| Example of C style for loop |
 | expand.sh | Example of variable expansion |
 | for.sh | Example for loop |
