@@ -7,9 +7,10 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | File | Description |
 | ------ | ------------------------------------------ |
 | Input-Font.zip | The Input font - my favourite for Terminal |
-| Lingon X.zip | Lingon utility for LaunchAgents |
+|  LaunchControl_1.27.tar.bz2 | Utility for LaunchAgents |
 | README.md | This file |
 | bash_profile | Some parts of my .bash_profile file |
+| com.honestpuck.test.plist | Example LaunchAgent  |
 | case.sh | Example case statement |
 | dock_setup.sh | Example entire script we use as LaunchAgent |
 | efor.sh| Example of C style for loop |
@@ -17,6 +18,7 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | for.sh | Example for loop |
 | func.sh | Example of a function with aguments |
 | index.html | The presentation slides |
+| local.job.plist | Example LaunchAgent |
 | pandoc.sh | command line to run Pandoc and create slides |
 | reveal.js/* | Slideshow software |
 | solarized.zip | My favourite theme for Terminal |

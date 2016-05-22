@@ -122,8 +122,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="shell-programming" class="slide level3">
 <h1>Shell Programming</h1>
 </section>
-<section id="echo-stuff" class="slide level3">
-<h1>Echo Stuff</h1>
+<section id="variables" class="slide level3">
+<h1>Variables</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">WORD=</span><span class="st">&quot;Foobar&quot;</span> ; <span class="kw">echo</span> <span class="ot">$WORD</span></code></pre></div>
 <aside class="notes">
 <p>Here we see how to set a variable and how to use one. Notice the semi-colon? We use a semi-colon to seperate two commands on the same line.</p>
@@ -216,6 +216,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="using-and" class="slide level3">
 <h1>Using &amp;&amp; and ||</h1>
+<p>A <strong>AND</strong> B <strong>OR</strong> C</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
 <span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
 <aside class="notes">
@@ -233,12 +234,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
     <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
 <span class="kw">fi</span></code></pre></div>
+<aside class="notes">
+<p>We can use the result from any command in an <code>if</code> statement. The special variable <code>$?</code> saves the result of the last command.</p>
+</aside>
 </section>
 <section id="checking-a-file" class="slide level3">
 <h1>Checking A File</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if [</span> <span class="ot">-e</span> README.md<span class="kw"> ]</span> ; <span class="kw">then</span>
     <span class="kw">echo</span> <span class="st">&quot;Readme exists&quot;</span>
 <span class="kw">fi</span></code></pre></div>
+<aside class="notes">
+<p>We can also test files, their existence and type. Here we use <code>-e</code> to test that the file exists.</p>
+</aside>
 </section>
 <section id="file-checks" class="slide level3">
 <h1>File Checks</h1>
@@ -270,6 +277,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
+<aside class="notes">
+<p>Here is a list of some of the more useful file tests.</p>
+</aside>
 </section>
 <section id="round-and-round" class="slide level3">
 <h1>Round And Round</h1>
@@ -349,15 +359,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="redirection" class="slide level3">
 <h1>Redirection</h1>
+</section>
+<section id="how-its-done" class="slide level3">
+<h1>How It's Done</h1>
 <ul>
-<li>Redirecting output</li>
-<li>STDOUT</li>
-<li>STDERR</li>
-<li>tee</li>
-<li>Directing input
+<li>Fresh output <code>ls &gt; files.txt</code></li>
+<li>Append to the file <code>ls &gt;&gt; files.txt</code></li>
+</ul>
+<aside class="notes">
+<p>We can take the output of a command and redirect it to a file. A single greater than will overwrite an existing file, two will append to the end of an existing file. Both will create the file if it doesn't exist.</p>
+</aside>
+</section>
+<section id="using-tee" class="slide level3">
+<h1>Using tee</h1>
 <ul>
-<li>Here documents</li>
-</ul></li>
+<li>Fresh file <code>ls | tee files.txt</code></li>
+<li>Append to the file <code>ls | tee -a files.txt</code></li>
 </ul>
 <aside class="notes">
 
@@ -366,16 +383,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="both-out-and-err" class="slide level3">
 <h1>Both OUT and ERR</h1>
 <p>If you want to log to the same file: <code>command1 &gt;&gt; log_file 2&gt;&amp;1</code></p>
-<p>If you want different files: <code>command1 &gt;&gt; log_file 2&gt;&gt; err_file</code></p>
+If you want different files: <code>command1 &gt;&gt; log_file 2&gt;&gt; err_file</code>
+<aside class="notes">
+<p>There are actually <em>two</em> outputs. The &quot;ordinary&quot; one, STDOUT and one for errors, STDERR. They are numbered 1 and 2 respectively and we can direct them both if we want.</p>
+</aside>
 </section>
 <section id="here-documents" class="slide level3">
 <h1>Here documents</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">logger</span> -t SYSADMIN &lt;&lt;EOM
-&gt; I am going to <span class="kw">reboot</span> the system
-&gt; I&#39;m doing i<span class="kw">t</span> <span class="kw">because</span> I want to
-&gt; EOM</code></pre></div>
+I am going to <span class="kw">reboot</span> the system
+I&#39;m doing i<span class="kw">t</span> <span class="kw">because</span> I want to
+EOM</code></pre></div>
 <aside class="notes">
-
+<p>Open up Console then run these lines. Logger allows you to write to the system log. Using a here document allows us to write multiple lines.</p>
 </aside>
 </section>
 <section id="maths-using-expr" class="slide level3">
@@ -421,17 +441,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>dock_setup.sh</li>
 </ul>
 </section>
-<section id="places-to-go-people-to-see" class="slide level3">
-<h1>Places To Go, People To See</h1>
-<p>Apple have a good <code>bash</code> tutorial - http://apple.co/1MFChLE</p>
-<p>Good <code>bash</code> tutorial, also covers some tools - http://bit.ly/xw2016-2</p>
-<p>A (short) <code>grep</code> tutorial - http://bit.ly/w2016-3</p>
-<p>Longer <code>grep</code> tutorial from Bash Beginners Guide - http://bit.ly/xw2016-4</p>
-<p>Comprehensive <code>awk</code> tutorial - http://bit.ly/xw2016-5</p>
-<p>Gnus' &quot;Effective AWK Programming&quot; (can also be downloaded as HTML, text or PDF) http://bit.ly/xw2016-7</p>
-<p>All About Redirection http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html</p>
-<p>Apple's Launch page http://bit.ly/xw2016-8</p>
-<p>LaunchControl http://www.soma-zone.com/LaunchControl/</p>
+<section id="places-to-go" class="slide level3">
+<h1>Places To Go</h1>
+<ul>
+<li>Apple have a good <code>bash</code> tutorial http://apple.co/1MFChLE</li>
+<li>Good <code>bash</code> tutorial http://bit.ly/xw2016-2</li>
+<li>A (short) <code>grep</code> tutorial http://bit.ly/xw2016-3</li>
+<li>Longer <code>grep</code> tutorial http://bit.ly/xw2016-4</li>
+<li>Comprehensive <code>awk</code> tutorial http://bit.ly/xw2016-5</li>
+<li>Effective AWK Programming http://bit.ly/xw2016-7</li>
+<li>All About Redirection http://bit.ly/xw2016-1</li>
+<li>Apple's Launch page http://bit.ly/xw2016-8</li>
+<li>Lingon X http://bit.ly/xw2016-6</li>
+<li>This presentation http://bit.ly/xw2016-9</li>
+<li>My home directory on git http://bit.ly/xw2016-10</li>
+</ul>
 </section>
     </div>
   </div>

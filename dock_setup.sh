@@ -87,14 +87,14 @@ initial_dock_setup(){   # Remove the dock items we don't want
 	`date "+%a %b %d %H:%M:%S"`      - OS Vers:           10.${os_vers}
 	`date "+%a %b %d %H:%M:%S"`      - Office Version:    Office $office_vers
 	`date "+%a %b %d %H:%M:%S"`  - Waiting for presence of dock plist...
-	END
+END
 
 	while [ ! -f ~/Library/Preferences/com.apple.dock.plist ]; do 
 		# We sleep 1 second here so we don't totally kill the cpu usage
 		sleep 1
 	done
 
-	# We sleep 2 seconds here so that Apple can set the dock corectly before we modify it
+	# Sleep 2 seconds here so that Apple can set the dock correctly before we modify it
 	sleep 2
 
 	echo `date "+%a %b %d %H:%M:%S"` " - Removing all Dock items..."

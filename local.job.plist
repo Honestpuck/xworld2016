@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>local.job</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/find</string>
+		<string>/Users/tonyw/Downloads</string>
+		<string>-mtime</string>
+		<string>+27</string>
+		<string>-exec</string>
+		<string>mv</string>
+		<string>{}</string>
+		<string>/Users/tonyw/Downloads_archive</string>
+		<string>;</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>3600</integer>
+</dict>
+</plist>
