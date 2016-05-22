@@ -7,3 +7,6 @@
 *.bak
 *~
 
+# emacs working file
+.#*
+

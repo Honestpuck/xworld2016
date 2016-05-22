@@ -1,0 +1,62 @@
+Command	Class	Description
+asr	Management	Checksum an image or restore image
+bless	Management	Set the boot volume
+createhomedir	System	Create and populate home directories on the local computer
+csrutil	Management	Configure System Integrity Protection (SIP)
+defaults	System	Manipulate a users system and application defaults plist files
+disklabel	System	Query and manipulate a disk label
+diskutil	System	Partition and format drives, create RAID sets
+ditto	User	Copy files
+dscacheutil	System	Query or flush the Directory Service/DNS cache
+dscl	System	Configure directory services
+dseditgroup	System	Edit, create, manipulate, or delete groups
+dsenableroot	System	Enable root access
+dsmemberutil	System	View user and groups rights
+edquota	Server	Set quotas for share points
+fsaclctl	Management	Turn on or off ACL controls for a volume
+hdiutil	Management	Create disk images
+installer	System	Install package
+ipmitool	Server	Manipulate boot of X Serve
+kextfind	System	find kernel extensions (kexts) based on a variety of criteria
+launchctl	User	Interface with launchd
+logger	System	Write to the system log
+lsbom	Management	List contents of BOM file
+lsregister	System	Reset the Launch Services database
+mdfind	User	Spotlight search
+mdls	User	List spotlight metadata for a file
+mdutil	System	Control spotlight indexing
+nano	User	Simple text editor
+networksetup	Management	Set network preferences
+nvram	Management	Reading and setting NVRAM
+open	User	Open a file, diredctory or app in the GUI.
+osascript	User	Run an applescript or applescript command
+pbcopy	User	Copy output to Clipboard
+pbpaste	User	Copy from clipboard
+pdisk	System	Partition a disk
+pkgutil	System	Query and manipulate installed packages
+PlistBuddy	User	Manipulate an arbitrary plist
+plutil	User	Check a plist or convert from compiled to text and vice versa
+pmset	Management	Setting power management
+pwpolicy	Server	Get and set the password policy
+reboot	System	Reboot the computer
+screencapture	User	Capture screen or window
+scselect	System	Set network locations
+scutil	System	Get and set system config parameters
+security	Management	Administer Keychains, keys, certificates
+serveradmin	Server	Administer services on a server
+serversetup	Server	Enquire about a server
+sharing	Server	List, create, modify, disable share points
+shutdown	System	Shutdown the computer
+sips	User	Scriptable image processing system
+snmpconf	Management	Set up SNMP on a server
+snmpget	Management	Get SNMP info
+snmpwalk	Management	Get bulk SNMP info
+softwareupdate	System	List and install Apple updates
+sw_vers	System	Print OS version
+system_profiler	Management	Extract system info like GUI app
+systemsetup	Management	Set some system wide preferences
+textutil	User	Text utility to view and convert text files supported on Mac
+tm_util	Management	Time Machine utility
+vifs	Management	Safely edit fstab
+visudo	System	Edit the sudoers file
+xcode-select	System	Select XCode toolchain and install command line tools

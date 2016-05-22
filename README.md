@@ -7,7 +7,8 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | File | Description |
 | ------ | ------------------------------------------ |
 | Input-Font.zip | The Input font - my favourite for Terminal |
-|  LaunchControl_1.27.tar.bz2 | Utility for LaunchAgents |
+| LaunchControl_1.27.tar.bz2 | Utility for LaunchAgents |
+| OSX CLI Tools.tsv | Cheat sheet of Mac specific command line tools |
 | README.md | This file |
 | bash_profile | Some parts of my .bash_profile file |
 | com.honestpuck.test.plist | Example LaunchAgent  |
