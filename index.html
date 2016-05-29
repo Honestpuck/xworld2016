@@ -67,7 +67,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section>
   <h1 class="title">Beginning Bash</h1>
   <h2 class="author">Tony Williams</h2>
-  <h3 class="date">X-World 2016</h3>
+  <h3 class="date">X World 2016</h3>
 </section>
 
 <section id="setting-up-terminal" class="slide level3">
@@ -278,7 +278,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tbody>
 </table>
 <aside class="notes">
-<p>Here is a list of some of the more useful file tests.</p>
+<p>Here is a list of some of the more useful file tests. <code>man test</code> will get you a comprehensive list and a list of all the comparison operators for strings and numbers</p>
 </aside>
 </section>
 <section id="round-and-round" class="slide level3">
@@ -405,27 +405,44 @@ EOM</code></pre></div>
 <span class="ot">WEEKS=$1</span>
 <span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
+<aside class="notes">
+<p>We can do maths in scripts using the <code>expr</code> command.</p>
+</aside>
 </section>
 <section id="maths-using-expansion" class="slide level3">
 <h1>Maths Using Expansion</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
 
 <span class="ot">WEEKS=$1</span>
-<span class="ot">DAYS=(</span>(<span class="ot">$WEEKS</span>*7<span class="ot">)</span>)
+<span class="ot">DAYS=$(($WEEKS</span>*7<span class="ot">))</span>
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
+<p>Or even <code>echo $(( 7 * ( 4 + 2 ) ))</code> Though the spaces are not required <code>echo $((7*(4+2)))</code></p>
+<aside class="notes">
+<p>It often looks clearer to use shell arithmetic expansion for maths.</p>
+</aside>
 </section>
 <section id="improve-the-look" class="slide level3">
 <h1>Improve The Look</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">WEEKS=$1</span>
 <span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d <span class="kw">|</span> <span class="kw">awk</span> <span class="st">&#39;{ print $1 &quot; &quot; $2 &quot; &quot; $3 &quot; &quot; $4 }&#39;</span></code></pre></div>
+<aside class="notes">
+<p>We can pipe the output of the <code>date</code> command to a utility called <code>awk</code>. This is a powerful text processing language but here we just use a simple command. This one just prints some of the fields. Awk is often used to trim or reformat the output of another command.</p>
+</aside>
 </section>
 <section id="launchagents-launchdaemons" class="slide level3">
 <h1>LaunchAgents &amp; LaunchDaemons</h1>
 <ul>
 <li>LaunchAgents run at user login</li>
+<li>definition found in ~/Library/LaunchAgents/</li>
 <li>LaunchDaemons run at boot</li>
+<li>definition found in /System/Library/LaunchDaemons/</li>
 </ul>
+<aside class="notes">
+<p>Here we get into what we can do with a script. Anything can be a LauchAgent or LaunchDaemons, so we can write a script that gets installed as part of the system.</p>
+<p>Both LaunchAgents and LaunchDaemons can run once, stay running or be re-run at an interval.</p>
+<p>The actual script can live anywhere but the file defining how it is run lives in one of the two spots.</p>
+</aside>
 </section>
 <section id="controlling-launchagents" class="slide level3">
 <h1>Controlling LaunchAgents</h1>
@@ -434,28 +451,65 @@ EOM</code></pre></div>
 <li>named 'something.command.plist' e.g.</li>
 <li>com.honestpuck.command.plist</li>
 </ul>
+<aside class="notes">
+<p>The defining file is a plist. It is usully named as a reverse domain name followed by the command name.</p>
+<p>You can write one by hand but it is easier to use a utility such as Lingon X or LaunchControl.</p>
+</aside>
+</section>
+<section id="giving-it-a-try" class="slide level3">
+<h1>Giving It A Try</h1>
+<ul>
+<li>agent_test.sh</li>
+<li>com.honestpuck.test.plist</li>
+</ul>
+<aside class="notes">
+<p>Let's give it a try by creating a LaunchAgent, com.honestpuck.test.plist, to run <code>agent_test.sh</code> using LaunchControl.</p>
+</aside>
+</section>
+<section id="a-complex-example" class="slide level3">
+<h1>A Complex Example</h1>
+<ul>
+<li>local.job.plist</li>
+</ul>
+<aside class="notes">
+<p>com.honestpuck.test.plist is a simple example. Let's create a more complex one that runs every hour.</p>
+</aside>
 </section>
 <section id="putting-it-all-together" class="slide level3">
 <h1>Putting it all together</h1>
 <ul>
 <li>dock_setup.sh</li>
 </ul>
+<aside class="notes">
+<p>Now let's put it all together by looking at a longish shell script that can get used as a LaunchAgent.</p>
+</aside>
 </section>
 <section id="places-to-go" class="slide level3">
 <h1>Places To Go</h1>
 <ul>
-<li>Apple have a good <code>bash</code> tutorial http://apple.co/1MFChLE</li>
-<li>Good <code>bash</code> tutorial http://bit.ly/xw2016-2</li>
-<li>A (short) <code>grep</code> tutorial http://bit.ly/xw2016-3</li>
-<li>Longer <code>grep</code> tutorial http://bit.ly/xw2016-4</li>
-<li>Comprehensive <code>awk</code> tutorial http://bit.ly/xw2016-5</li>
-<li>Effective AWK Programming http://bit.ly/xw2016-7</li>
-<li>All About Redirection http://bit.ly/xw2016-1</li>
-<li>Apple's Launch page http://bit.ly/xw2016-8</li>
-<li>Lingon X http://bit.ly/xw2016-6</li>
-<li>This presentation http://bit.ly/xw2016-9</li>
-<li>My home directory on git http://bit.ly/xw2016-10</li>
+<li>Apple have a good <code>bash</code> tutorial <a href="http://apple.co/1MFChLE" class="uri">http://apple.co/1MFChLE</a></li>
+<li>Good <code>bash</code> tutorial <a href="http://bit.ly/xw2016-2" class="uri">http://bit.ly/xw2016-2</a></li>
+<li>Comprehensive <code>awk</code> tutorial <a href="http://bit.ly/xw2016-5" class="uri">http://bit.ly/xw2016-5</a></li>
+<li>Effective AWK Programming <a href="http://bit.ly/xw2016-7" class="uri">http://bit.ly/xw2016-7</a></li>
+<li>All About Redirection <a href="http://bit.ly/xw2016-1" class="uri">http://bit.ly/xw2016-1</a></li>
 </ul>
+<aside class="notes">
+<p>Before we go here are some web sites you might like to visit for more information.</p>
+</aside>
+</section>
+<section id="more-places-to-go" class="slide level3">
+<h1>More Places To Go</h1>
+<ul>
+<li>Apple's page on Launch Daemons and Agents <a href="http://bit.ly/xw2016-8" class="uri">http://bit.ly/xw2016-8</a></li>
+<li>Lingon X <a href="http://bit.ly/xw2016-6" class="uri">http://bit.ly/xw2016-6</a></li>
+<li>LaunchControl <a href="http://bit.ly/xw2016-11" class="uri">http://bit.ly/xw2016-11</a></li>
+<li>Good tutorial on LaunchAgent and Daemon format <a href="http://launchd.info" class="uri">http://launchd.info</a></li>
+<li>This presentation <a href="http://bit.ly/xw2016-9" class="uri">http://bit.ly/xw2016-9</a></li>
+<li>My home directory on git <a href="http://bit.ly/xw2016-10" class="uri">http://bit.ly/xw2016-10</a></li>
+</ul>
+<aside class="notes">
+<p>And some more :)</p>
+</aside>
 </section>
     </div>
   </div>

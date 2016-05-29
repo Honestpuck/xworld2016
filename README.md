@@ -10,7 +10,7 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | LaunchControl_1.27.tar.bz2 | Utility for LaunchAgents |
 | OSX CLI Tools.tsv | Cheat sheet of Mac specific command line tools |
 | README.md | This file |
-| bash_profile | Some parts of my .bash_profile file |
+| bash_profiles.sh | Some parts of my .bash_profile file |
 | com.honestpuck.test.plist | Example LaunchAgent  |
 | case.sh | Example case statement |
 | dock_setup.sh | Example entire script we use as LaunchAgent |
@@ -23,6 +23,8 @@ It contains a bunch of example scripts and the Markdown source and reveal.js fin
 | pandoc.sh | command line to run Pandoc and create slides |
 | reveal.js/* | Slideshow software |
 | solarized.zip | My favourite theme for Terminal |
+| slides.pdf | a PDF of the presentation slides |
+| slides_notes.pdf | a PDF of the slides and my notes |
 | weeks.sh |  Example of maths using `expr` |
 | weeks2.sh | Pretty version of `weeks.sh` using `awk` |
 | while.sh | Example of using `while` |

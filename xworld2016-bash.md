@@ -1,6 +1,6 @@
 % Beginning Bash
 % Tony Williams
-% X-World 2016
+% X World 2016
 
 ### Setting Up `Terminal`
 
@@ -11,7 +11,9 @@
 
 <div class="notes">
 A good start is to make Terminal look better. You can colorize the
-output with a profile and use a better font and bigger font size.
+output with a profile and use a better font and bigger font size. I've
+included my favourite Terminal theme 'Solarized', and my favourite
+monospaced font, Input. You can customise Input if you go to it's web site.
 </div>
 
 ### Before We Begin
@@ -34,7 +36,18 @@ source-highlight is a package from the Gnu project that highlights
 source code. We use it for that purpose.
 </div>
 
-### Simple Commands
+### `source` A File
+- bash_profile.sh
+
+<div class="notes">
+if we run a shell script it runs in a different shell process so any
+changes we make to the way bash runs or looks disappear at the end of
+the script.
+
+We can get around this with the `source` command. This takes a text
+file and behaves exactly if we had typed it into the command line ourselves.
+</div>
+
 
 ### `defaults` Read
 ``` bash
@@ -419,7 +432,8 @@ date -v +${DAYS}d | awk '{ print $1 " " $2 " " $3 " " $4 }'
 <div class="notes">
 We can pipe the output of the `date` command to a utility called
 `awk`. This is a powerful text processing language but here we just
-use a simple command. This one just prints some of the fields.
+use a simple command. This one just prints some of the fields. Awk is
+often used to trim or reformat the output of another command.
 </div>
 
 ### LaunchAgents & LaunchDaemons
@@ -433,11 +447,11 @@ Here we get into what we can do with a script. Anything can be a
 LauchAgent or LaunchDaemons, so we can write a script that gets
 installed as part of the system.
 
-Both LaunchAgents and LaunchDaemons can run once or stay running. We
-can even ask the system to restart them at an interval.
+Both LaunchAgents and LaunchDaemons can run once, stay running or be
+re-run at an interval.
 
-The actual script can live anywhere but the fil defining how it is run
-loves in one of the two spots.
+The actual script can live anywhere but the file defining how it is run
+lives in one of the two spots.
 </div>
 
 ### Controlling LaunchAgents
@@ -446,7 +460,7 @@ loves in one of the two spots.
   - com.honestpuck.command.plist
 
 <div class="notes">
-The defining file is a plist. It is named as a reverse domain name
+The defining file is a plist. It is usully named as a reverse domain name
 followed by the command name.
 
 You can write one by hand but it is easier to use a utility such as
@@ -455,31 +469,69 @@ Lingon X or LaunchControl.
 
 ### Giving It A Try
 - agent_test.sh
+- com.honestpuck.test.plist
+
+<div class="notes">
+Let's give it a try by creating a LaunchAgent,
+com.honestpuck.test.plist, to run `agent_test.sh`
+using LaunchControl.
+</div>
+
+### A Complex Example
+- local.job.plist
+
+<div class="notes">
+com.honestpuck.test.plist is a simple example. Let's create a more
+complex one that runs every hour.
+</div>
 
 ### Putting it all together
  - dock_setup.sh
 
 <div class="notes">
+Now let's put it all together by looking at a longish shell
+script that can get used as a LaunchAgent.
+</div>
 
+### Getting A Profile
+ - bash_profile.sh
+ 
+<div class="notes">
+Another example, let's look at part of my .bash_profile file that we
+have been using.
 </div>
 
 ### Places To Go
 
-- Apple have a good `bash` tutorial (http://apple.co/1MFChLE)
-- Good `bash` tutorial http://bit.ly/xw2016-2
-- Comprehensive `awk` tutorial http://bit.ly/xw2016-5
-- Effective AWK Programming http://bit.ly/xw2016-7
-- All About Redirection http://bit.ly/xw2016-1
+- This presentation <http://bit.ly/xw2016-9>
+- Apple have a good `bash` tutorial <http://apple.co/1MFChLE>
+- Good `bash` tutorial <http://bit.ly/xw2016-2>
+- Comprehensive `awk` tutorial <http://bit.ly/xw2016-5>
+- Effective AWK Programming <http://bit.ly/xw2016-7>
+- All About Redirection <http://bit.ly/xw2016-1>
+
+<div class="notes">
+Before we go here are some web sites you might like to visit for more information.
+</div>
 
 ### More Places To Go
 
-- Apple's page on Launch Daemons and Agents http://bit.ly/xw2016-8
-- Lingon X http://bit.ly/xw2016-6
-- LaunchControl http://bit.ly/xw2016-11
-- Good tutorial on LaunchAgent and Daemon format http://launchd.info
-- This presentation http://bit.ly/xw2016-9
-- My home directory on git http://bit.ly/xw2016-10
+- Apple's page on Launch Daemons and Agents <http://bit.ly/xw2016-8>
+- Lingon X <http://bit.ly/xw2016-6>
+- LaunchControl <http://bit.ly/xw2016-11>
+- Good tutorial on LaunchAgent and Daemon format <http://launchd.info>
+- My home directory on git <http://bit.ly/xw2016-10>
+- MacAdmins Slack channel <https://macadmins.herokuapp.com>
 
 <div class="notes">
-
+And some more :)
 </div>
+
+### A Final List
+
+- Input font <http://input.fontbureau.com>
+- Solarized colour theme <http://ethanschoonover.com/solarized>
+- bash completion <http://bit.ly/xw2016-12>
+- shellcheck, a script checker <http://www.shellcheck.net>
+
+
