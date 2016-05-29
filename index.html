@@ -81,7 +81,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Setting Window Size</li>
 </ul>
 <aside class="notes">
-<p>A good start is to make Terminal look better. You can colorize the output with a profile and use a better font and bigger font size.</p>
+<p>A good start is to make Terminal look better. You can colorize the output with a profile and use a better font and bigger font size. I've included my favourite Terminal theme 'Solarized', and my favourite monospaced font, Input. You can customise Input if you go to it's web site.</p>
 </aside>
 </section>
 <section id="before-we-begin" class="slide level3">
@@ -99,8 +99,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>source-highlight is a package from the Gnu project that highlights source code. We use it for that purpose.</p>
 </aside>
 </section>
-<section id="simple-commands" class="slide level3">
-<h1>Simple Commands</h1>
+<section id="source-a-file" class="slide level3">
+<h1><code>source</code> A File</h1>
+<ul>
+<li>bash_profile.sh</li>
+</ul>
+<aside class="notes">
+<p>if we run a shell script it runs in a different shell process so any changes we make to the way bash runs or looks disappear at the end of the script.</p>
+<p>We can get around this with the <code>source</code> command. This takes a text file and behaves exactly if we had typed it into the command line ourselves.</p>
+</aside>
 </section>
 <section id="defaults-read" class="slide level3">
 <h1><code>defaults</code> Read</h1>
@@ -484,9 +491,19 @@ EOM</code></pre></div>
 <p>Now let's put it all together by looking at a longish shell script that can get used as a LaunchAgent.</p>
 </aside>
 </section>
+<section id="getting-a-profile" class="slide level3">
+<h1>Getting A Profile</h1>
+<ul>
+<li>bash_profile.sh</li>
+</ul>
+<aside class="notes">
+<p>Another example, let's look at part of my .bash_profile file that we have been using.</p>
+</aside>
+</section>
 <section id="places-to-go" class="slide level3">
 <h1>Places To Go</h1>
 <ul>
+<li>This presentation <a href="http://bit.ly/xw2016-9" class="uri">http://bit.ly/xw2016-9</a></li>
 <li>Apple have a good <code>bash</code> tutorial <a href="http://apple.co/1MFChLE" class="uri">http://apple.co/1MFChLE</a></li>
 <li>Good <code>bash</code> tutorial <a href="http://bit.ly/xw2016-2" class="uri">http://bit.ly/xw2016-2</a></li>
 <li>Comprehensive <code>awk</code> tutorial <a href="http://bit.ly/xw2016-5" class="uri">http://bit.ly/xw2016-5</a></li>
@@ -504,12 +521,21 @@ EOM</code></pre></div>
 <li>Lingon X <a href="http://bit.ly/xw2016-6" class="uri">http://bit.ly/xw2016-6</a></li>
 <li>LaunchControl <a href="http://bit.ly/xw2016-11" class="uri">http://bit.ly/xw2016-11</a></li>
 <li>Good tutorial on LaunchAgent and Daemon format <a href="http://launchd.info" class="uri">http://launchd.info</a></li>
-<li>This presentation <a href="http://bit.ly/xw2016-9" class="uri">http://bit.ly/xw2016-9</a></li>
 <li>My home directory on git <a href="http://bit.ly/xw2016-10" class="uri">http://bit.ly/xw2016-10</a></li>
+<li>MacAdmins Slack channel <a href="https://macadmins.herokuapp.com" class="uri">https://macadmins.herokuapp.com</a></li>
 </ul>
 <aside class="notes">
 <p>And some more :)</p>
 </aside>
+</section>
+<section id="a-final-list" class="slide level3">
+<h1>A Final List</h1>
+<ul>
+<li>Input font <a href="http://input.fontbureau.com" class="uri">http://input.fontbureau.com</a></li>
+<li>Solarized colour theme <a href="http://ethanschoonover.com/solarized" class="uri">http://ethanschoonover.com/solarized</a></li>
+<li>bash completion <a href="http://bit.ly/xw2016-12" class="uri">http://bit.ly/xw2016-12</a></li>
+<li>shellcheck, a script checker <a href="http://www.shellcheck.net" class="uri">http://www.shellcheck.net</a></li>
+</ul>
 </section>
     </div>
   </div>

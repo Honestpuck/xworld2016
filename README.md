@@ -2,7 +2,12 @@
 
 A repo for my workshop at X World 2016 "Bash For Beginners"
 
-It contains a bunch of example scripts and the Markdown source and reveal.js final for the presentation.
+It contains a bunch of example scripts and the Markdown source and
+reveal.js final for the presentation.
+
+You may find that the HTML slides and the PDF files are behind the
+actual source at any time. Sorry for that. The source file
+`xworld2016-bash/md` is definitive.
 
 | File | Description |
 | ------ | ------------------------------------------ |
