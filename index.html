@@ -264,7 +264,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     -F <span class="st">&quot;message=</span><span class="ot">${MESSAGE}</span><span class="st">&quot;</span> <span class="st">&quot;</span><span class="ot">${PUSHOVERURL}</span><span class="st">&quot;</span> <span class="kw">&gt;</span> /dev/null <span class="kw">2&gt;&amp;1</span>
 <span class="kw">}</span></code></pre></div>
 <aside class="notes">
-<p>Here we have a function where we are passing parameters.</p>
+<p>Here we have a function where we are passing parameters. Notice we have to do it by number and it is 1 indexed.</p>
 </aside>
 </section>
 <section id="decisions-decisions-1" class="slide level3">
@@ -640,6 +640,10 @@ EOM</code></pre></div>
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Parallax background image
+        parallaxBackgroundImage: 'XW16-Empty.jpeg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+        // Parallax background size
+        parallaxBackgroundSize: '1280px 750px', // CSS syntax, e.g. "2100px 900px"
 
         // Optional reveal.js plugins
         dependencies: [

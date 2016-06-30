@@ -48,7 +48,6 @@ We can get around this with the `source` command. This takes a text
 file and behaves exactly if we had typed it into the command line ourselves.
 </div>
 
-
 ### `defaults` Read
 ``` bash
 defaults read com.apple.dock | less
@@ -67,7 +66,7 @@ defaults write com.apple.dock autohide -bool NO ; killall Dock
 defaults write com.apple.dock orientation "right" ; killall Dock
 defaults write com.apple.dock orientation "bottom" ; killall Dock
 ```
-
+ 
 <div class="notes">
 Now we use 'write' to change the preferences. After we type the first
 one we can use line editing to get the next 3 lines. C-a goes to start
