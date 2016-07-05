@@ -140,7 +140,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Pretty Prompt</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
 <aside class="notes">
-<p>The shell has a number of special variables. PS1 is one, it sets the look of your prompt.</p>
+<p>The shell has a number of special variables. PS1 is one, it sets the look of your prompt. In <code>prompt.sh</code>.</p>
 </aside>
 </section>
 <section id="alias-fun" class="slide level3">
@@ -162,6 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">alias</span> l=<span class="st">&#39;gls $LS_OPTIONS -lA&#39;</span></code></pre></div>
 <aside class="notes">
 <p>Here we have some aliases for a command with long and hard to remember options. An alias becomes a literal command so you can have options and arguments after it, but you can't pass an argument to the middle of it. This requires a function.</p>
+<p>In <code>alias.sh</code>.</p>
 </aside>
 </section>
 <section id="first-steps---just-a-little-function" class="slide level3">
@@ -175,9 +176,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here's a function that allows multiple arguments in the middle. The <code>$*</code> will be replaced by all the arguments on the command line.</p>
 </aside>
 </section>
-<section id="bigger-function---pass-paramters" class="slide level3">
-<h1>Bigger Function - Pass Paramters</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"></code></pre></div>
+<section id="bigger-function---pass-parameters" class="slide level3">
+<h1>Bigger Function - Pass Parameters</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">myfunc()</span> 
+<span class="kw">{</span> 
+    <span class="kw">echo</span> <span class="st">&quot;Arg 2: </span><span class="ot">$2</span><span class="st">&quot;</span> 
+    <span class="kw">echo</span> <span class="st">&quot;Arg 1: </span><span class="ot">$1</span><span class="st">&quot;</span>
+<span class="kw">}</span> 
+<span class="kw">myfunc</span> <span class="st">&quot;This is an arg&quot;</span> <span class="st">&quot;Another arg&quot;</span></code></pre></div>
+<aside class="notes">
+<p>In <code>func.sh</code></p>
+</aside>
 </section>
 <section id="decisions-decisions" class="slide level3">
 <h1>Decisions, Decisions</h1>
@@ -222,7 +231,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
 <span class="kw">esac</span></code></pre></div>
 <aside class="notes">
-<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return.</p>
+<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return. In <code>case.sh</code>.</p>
 </aside>
 </section>
 <section id="using-and" class="slide level3">
@@ -231,7 +240,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
 <span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
 <aside class="notes">
-<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR.</p>
+<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR. In <code>and.sh</code>.</p>
 </aside>
 </section>
 <section id="checking-the-result-code" class="slide level3">
@@ -249,8 +258,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We can use the result from any command in an <code>if</code> statement. The special variable <code>$?</code> saves the result of the last command.</p>
 </aside>
 </section>
-<section id="checking-a-file" class="slide level3">
-<h1>Checking A File</h1>
+<section id="parameters-to-a-function" class="slide level3">
+<h1>Parameters To A Function</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># send message to my phone via Pushover</span>
 <span class="co"># API and user keys are in my TOKENS file outside the repo.</span>
 <span class="fu">pushover()</span> <span class="kw">{</span>
@@ -283,7 +292,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span>
 <span class="kw">fi</span></code></pre></div>
 <aside class="notes">
-<p>An if statement. In this one we decide if we want to change the colour of the prompt depending if we are <code>root</code> or not. Not the <code>id -u</code> between the backticks. When we place a command between backticks the command is run and the output is used. Here we have the <code>id</code> shell command print our user ID, which is 0 if we are root.</p>
+<p>An if statement. In this one we decide if we want to change the colour of the prompt depending if we are <code>root</code> or not. Not the <code>id -u</code> between the backticks. When we place a command between backticks the command is run and the output is used. Here we have the <code>id</code> shell command print our user ID, which is 0 if we are root. In <code>if.sh</code>.</p>
 </aside>
 </section>
 <section id="colour-ls-1" class="slide level3">
@@ -310,7 +319,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
 <span class="kw">esac</span></code></pre></div>
 <aside class="notes">
-<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return.</p>
+<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return. In <code>case.sh</code></p>
 </aside>
 </section>
 <section id="using-and-1" class="slide level3">
@@ -319,7 +328,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
 <span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
 <aside class="notes">
-<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR.</p>
+<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR. In <code>and.sh</code>.</p>
 </aside>
 </section>
 <section id="checking-the-result-code-1" class="slide level3">
@@ -337,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We can use the result from any command in an <code>if</code> statement. The special variable <code>$?</code> saves the result of the last command.</p>
 </aside>
 </section>
-<section id="checking-a-file-1" class="slide level3">
+<section id="checking-a-file" class="slide level3">
 <h1>Checking A File</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if [</span> <span class="ot">-e</span> README.md<span class="kw"> ]</span> ; <span class="kw">then</span>
     <span class="kw">echo</span> <span class="st">&quot;Readme exists&quot;</span>
@@ -403,7 +412,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">esac</span>
 <span class="kw">done</span></code></pre></div>
 <aside class="notes">
-<p>A while loop. So long as the statement is true it will loop forever.</p>
+<p>A while loop. So long as the statement is true it will loop forever. In <code>while.sh</code>.</p>
 </aside>
 </section>
 <section id="for-ever" class="slide level3">
@@ -412,7 +421,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">echo</span> <span class="ot">$file</span>
 <span class="kw">done</span></code></pre></div>
 <aside class="notes">
-<p>A for loop. The echo statement will run for each item in <code>*.sh</code></p>
+<p>A for loop. The echo statement will run for each item in <code>*.sh</code>. In <code>for.sh</code>.</p>
 </aside>
 </section>
 <section id="even-more-for" class="slide level3">
@@ -421,7 +430,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">echo</span> <span class="st">&quot;I is </span><span class="ot">$i</span><span class="st">&quot;</span>
 <span class="kw">done</span></code></pre></div>
 <aside class="notes">
-<p>This is the C style <code>for</code>. There are the 3 parts. The first is run at the beginning of the <code>for</code>. The second is the test which is done at the top of the loop (so it is possible for the loop to never run). The third part is run at the bottom of the loop.</p>
+<p>This is the C style <code>for</code>. There are the 3 parts. The first is run at the beginning of the <code>for</code>. The second is the test which is done at the top of the loop (so it is possible for the loop to never run). The third part is run at the bottom of the loop. In <code>efor.sh</code>.</p>
 </aside>
 </section>
 <section id="expanding-variables" class="slide level3">
@@ -442,7 +451,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">echo</span> <span class="ot">$i</span> 
 <span class="kw">done</span></code></pre></div>
 <aside class="notes">
-<p>What defines an &quot;item&quot; is the Internal Field Seperator or IFS. Here we change it to a colon.</p>
+<p>What defines an &quot;item&quot; is the Internal Field Seperator or IFS. Here we change it to a colon. In <code>expand.sh</code>.</p>
 </aside>
 </section>
 <section id="special-characters-in-strings" class="slide level3">
@@ -476,7 +485,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Append to the file <code>ls | tee -a files.txt</code></li>
 </ul>
 <aside class="notes">
-
+<p><code>tee</code> allows us to redirect the output to a file <em>and</em> see it in the terminal.</p>
 </aside>
 </section>
 <section id="both-out-and-err" class="slide level3">
@@ -505,7 +514,7 @@ EOM</code></pre></div>
 <span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d </code></pre></div>
 <aside class="notes">
-<p>We can do maths in scripts using the <code>expr</code> command.</p>
+<p>We can do maths in scripts using the <code>expr</code> command. In <code>weeks.sh</code>.</p>
 </aside>
 </section>
 <section id="maths-using-expansion" class="slide level3">
@@ -526,7 +535,7 @@ EOM</code></pre></div>
 <span class="ot">DAYS=</span><span class="kw">`expr</span> <span class="ot">$WEEKS</span> <span class="st">&#39;*&#39;</span> <span class="st">&#39;7&#39;</span><span class="kw">`</span>
 <span class="kw">date</span> -v +<span class="ot">${DAYS}</span>d <span class="kw">|</span> <span class="kw">awk</span> <span class="st">&#39;{ print $1 &quot; &quot; $2 &quot; &quot; $3 &quot; &quot; $4 }&#39;</span></code></pre></div>
 <aside class="notes">
-<p>We can pipe the output of the <code>date</code> command to a utility called <code>awk</code>. This is a powerful text processing language but here we just use a simple command. This one just prints some of the fields. Awk is often used to trim or reformat the output of another command.</p>
+<p>We can pipe the output of the <code>date</code> command to a utility called <code>awk</code>. This is a powerful text processing language but here we just use a simple command. This one just prints some of the fields. Awk is often used to trim or reformat the output of another command. In <code>weeks2.sh</code>.</p>
 </aside>
 </section>
 <section id="launchagents-launchdaemons" class="slide level3">
