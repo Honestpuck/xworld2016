@@ -56,7 +56,8 @@ defaults read com.apple.dock | less
 <div class="notes">
 `defaults` is a command that allows us to read, write, and delete Mac OS
 X user defaults from the command-line. Here we are reading the
-preferences for the dock.
+preferences for the dock. Notice the bar and `less`. bash allows us
+to "pipe" the output from one command as the input of another.
 </div>
 
 ### `defaults`
