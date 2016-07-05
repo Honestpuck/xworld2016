@@ -21,3 +21,9 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 export LESS=" -R "
 
+# create colour file for `gls`
+if [ "$TERM" != "dumb" ]; then
+    export LS_OPTIONS='--color=auto -F -G'
+    eval `gdircolors ~/.dircolors`
+fi
+            

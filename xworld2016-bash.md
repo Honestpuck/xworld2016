@@ -94,7 +94,9 @@ PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
 ```
 
 <div class="notes">
-The shell has a number of special variables. PS1 is one, it sets the look of your prompt.
+The shell has a number of special variables. PS1 is one, it sets the
+look of your prompt.
+In `prompt.sh`.
 </div>
 
 ### Alias fun
@@ -118,6 +120,8 @@ Here we have some aliases for a command with long and hard to
 remember options. An alias becomes a literal command so you can have
 options and arguments after it, but you can't pass an argument to the
 middle of it. This requires a function.
+
+In `alias.sh`.
 </div>
 
 ### First Steps - Just A Little Function
@@ -134,10 +138,19 @@ Here's a function that allows multiple arguments in the middle. The
 `$*` will be replaced by all the arguments on the command line.
 </div>
 
-### Bigger Function - Pass Paramters
+### Bigger Function - Pass Parameters
 ```bash
-
+myfunc() 
+{ 
+    echo "Arg 2: $2" 
+    echo "Arg 1: $1"
+} 
+myfunc "This is an arg" "Another arg"
 ```
+
+<div class="notes">
+In `func.sh`
+</div>
 
 ### Decisions, Decisions
 - If, else, then
@@ -195,7 +208,7 @@ esac
 Here is a case statement. If the variable matches the value in the
 parentheses it runs the statement on that line. The value `( * )`
 matches everything. The `read` statement reads from the command line
-until you press return.
+until you press return. In `case.sh`.
 </div>
 
 ### Using && and ||
@@ -210,7 +223,7 @@ Here we use logic operators rather than if and else. This is perfect
 if you only want to run single commands. It works because the shell is
 "lazy" and won't run the second command in an AND when the first is
 false, then because the first set of statements is false it will run
-the command after the OR.
+the command after the OR. In `and.sh`.
 </div>
 
 ### Checking The Result Code
@@ -231,7 +244,7 @@ We can use the result from any command in an `if` statement. The
 special variable `$?` saves the result of the last command.
 </div>
 
-### Checking A File
+### Parameters To A Function
 ```bash
 # send message to my phone via Pushover
 # API and user keys are in my TOKENS file outside the repo.
@@ -271,7 +284,7 @@ An if statement. In this one we decide if we want to change the colour
 of the prompt depending if we are `root` or not. Not the `id -u`
 between the backticks. When we place a command between backticks the
 command is run and the output is used. Here we have the `id` shell
-command print our user ID, which is 0 if we are root.
+command print our user ID, which is 0 if we are root. In `if.sh`.
 </div>
 
 ### Colour `ls`
@@ -308,7 +321,7 @@ esac
 Here is a case statement. If the variable matches the value in the
 parentheses it runs the statement on that line. The value `( * )`
 matches everything. The `read` statement reads from the command line
-until you press return.
+until you press return. In `case.sh`
 </div>
 
 ### Using && and ||
@@ -323,7 +336,7 @@ Here we use logic operators rather than if and else. This is perfect
 if you only want to run single commands. It works because the shell is
 "lazy" and won't run the second command in an AND when the first is
 false, then because the first set of statements is false it will run
-the command after the OR.
+the command after the OR. In `and.sh`.
 </div>
 
 ### Checking The Result Code
@@ -393,6 +406,7 @@ done
 ```
 <div class="notes">
 A while loop. So long as the statement is true it will loop forever.
+In `while.sh`.
 </div>
 
 ### For Ever
@@ -403,7 +417,8 @@ done
 ```
 
 <div class="notes">
-A for loop. The echo statement will run for each item in `*.sh`
+A for loop. The echo statement will run for each item in `*.sh`.
+In `for.sh`.
 </div>
 
 ### Even More For
@@ -417,7 +432,7 @@ done
 This is the C style `for`. There are the 3 parts. The first is run at
 the beginning of the `for`. The second is the test which is done at the
 top of the loop (so it is possible for the loop to never run). The
-third part is run at the bottom of the loop. 
+third part is run at the bottom of the loop. In `efor.sh`.
 </div>
 
 ### Expanding Variables
@@ -443,7 +458,7 @@ done
 
 <div class="notes">
 What defines an "item" is the Internal Field Seperator or IFS. Here we
-change it to a colon.
+change it to a colon. In `expand.sh`.
 </div>
 
 ### Special Characters In Strings
@@ -483,7 +498,7 @@ doesn't exist.
 `ls | tee -a files.txt`
 
 <div class="notes">
-
+`tee` allows us to redirect the output to a file _and_ see it in the terminal.
 </div>
 
 ### Both OUT and ERR
@@ -521,7 +536,7 @@ date -v +${DAYS}d
 ```
 
 <div class="notes">
-We can do maths in scripts using the `expr` command. 
+We can do maths in scripts using the `expr` command. In `weeks.sh`.
 </div>
 
 ### Maths Using Expansion
@@ -552,6 +567,7 @@ We can pipe the output of the `date` command to a utility called
 `awk`. This is a powerful text processing language but here we just
 use a simple command. This one just prints some of the fields. Awk is
 often used to trim or reformat the output of another command.
+In `weeks2.sh`.
 </div>
 
 ### LaunchAgents & LaunchDaemons
