@@ -25,6 +25,7 @@ generated using `Marked 2` and `Export as, Save PDF`.
 | Input-Font.zip | The Input font - my favourite for Terminal |
 | LaunchControl_1.27.tar.bz2 | Utility for LaunchAgents |
 | OSX CLI Tools.tsv | Cheat sheet of Mac specific command line tools |
+| OSX CLI Tools.pdf | PDF version of above cheat sheet. |
 | README.md | This file |
 | XW16-Empty.jpg | Background for slides |
 | and.sh | Example of `and` and `or` |
