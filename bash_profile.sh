@@ -24,6 +24,6 @@ export LESS=" -R "
 # create colour file for `gls`
 if [ "$TERM" != "dumb" ]; then
     export LS_OPTIONS='--color=auto -F -G'
-    eval `gdircolors ~/.dircolors`
+    eval `gdircolors `
 fi
             
