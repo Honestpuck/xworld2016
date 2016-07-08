@@ -67,7 +67,7 @@ defaults write com.apple.dock autohide -bool NO ; killall Dock
 defaults write com.apple.dock orientation "right" ; killall Dock
 defaults write com.apple.dock orientation "bottom" ; killall Dock
 ```
- 
+
 <div class="notes">
 Now we use 'write' to change the preferences. After we type the first
 one we can use line editing to get the next 3 lines. C-a goes to start
@@ -244,118 +244,6 @@ We can use the result from any command in an `if` statement. The
 special variable `$?` saves the result of the last command.
 </div>
 
-### Parameters To A Function
-```bash
-# send message to my phone via Pushover
-# API and user keys are in my TOKENS file outside the repo.
-pushover() {
-    PUSHOVERURL="https://api.pushover.net/1/messages.json"
-
-    TITLE="${1}" ; MESSAGE="${2}" ; DEVICE="${3}"
-
-    curl \
-    -F "token=${PUSHOVER_API}" -F "user=${PUSHOVER_USER}" \
-    -F "device=${DEVICE}" -F "title=${TITLE}" \
-    -F "message=${MESSAGE}" "${PUSHOVERURL}" > /dev/null 2>&1
-}
-```
-
-<div class="notes">
-Here we have a function where we are passing parameters. Notice we have
-to do it by number and it is 1 indexed.
-</div>
-
-### Decisions, Decisions
-- If, else, then
-- Case
-- Using '&&' and '||'
-
-### Example Decision
-``` bash
-# make root red
-if [ `id -u` = 0 ]
-then
-        PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] "
-fi
-```
-
-<div class="notes">
-An if statement. In this one we decide if we want to change the colour
-of the prompt depending if we are `root` or not. Not the `id -u`
-between the backticks. When we place a command between backticks the
-command is run and the output is used. Here we have the `id` shell
-command print our user ID, which is 0 if we are root. In `if.sh`.
-</div>
-
-### Colour `ls`
-``` bash
- # colours for the Gnu ls (from coreutils)
-if [ "$TERM" != "dumb" ]; then
-    export LS_OPTIONS='--color=auto -F -G -h'
-    eval `gdircolors ~/.dircolors`
-fi
-```
-
-<div class="notes">
-Here's another if statement. Notice that this time we don't have
-a return before the `then`, instead we have a semi-colon, `;` to
-represent the same thing. On any line we can replace a return with a
-semi-colon.
-</div>
-
-### Make A Case
-``` bash
-#!/bin/bash
-
-echo -n "Word: " ; read WORD
-
-case $WORD in
-    ( "Foo" )       echo "Bar" ;;
-    ( "Bar" )       echo "Foo" ;;
-    ( "FooBar" )    echo "No Way" ;;
-    ( * )           echo "FooBar" ;;
-esac
-```
-
-<div class="notes">
-Here is a case statement. If the variable matches the value in the
-parentheses it runs the statement on that line. The value `( * )`
-matches everything. The `read` statement reads from the command line
-until you press return. In `case.sh`
-</div>
-
-### Using && and ||
-A **AND** B **OR** C
-```bash
-[ `id -u` = 0 ] && PS1="\[\033[31m\]\h:\W \u\$\[\033[0m\] " \
-|| PS1="\[\033[34m\]\h:\w \u\$\[\033[0m\] "
-```
-
-<div class="notes">
-Here we use logic operators rather than if and else. This is perfect
-if you only want to run single commands. It works because the shell is
-"lazy" and won't run the second command in an AND when the first is
-false, then because the first set of statements is false it will run
-the command after the OR. In `and.sh`.
-</div>
-
-### Checking The Result Code
-``` bash
-if ls mysillyfilename ; then
-    echo "File exists."
-fi
-
-# checking result code variable
-ls mysillyfilename
-if [ $? = 0 ] ; then
-    echo "File exists."
-fi
-```
-
-<div class="notes">
-We can use the result from any command in an `if` statement. The
-special variable `$?` saves the result of the last command.
-</div>
 
 ### Checking A File
 ```bash
@@ -371,10 +259,10 @@ test that the file exists.
 
 ### File Checks
 
-|        |                   |        |                          |
-|:----:|:------------|:----:|:----------------|
-| -a | if file exists | -d | if file is directory |
-| -e | if file exists | -r | if file is readable |
+|    |                      |    |                       |
+|:--:|:---------------------|:--:|:----------------------|
+| -a | if file exists       | -d | if file is directory  |
+| -e | if file exists       | -r | if file is readable   |
 | -w | if file is writeable | -x | if file is executable |
 | -O | is owned by the user | -G | is owned by the group |
 
@@ -392,18 +280,19 @@ operators for strings and numbers
 ### While Loop
 ``` bash
 #!/bin/bash
-
+WORD="Start"
+while [ "$WORD" != "" ] ; do
 echo -n "Word: " ; read WORD
-
-while [ $WORD -ne "" ] ; do
-    case $WORD in
+    case "$WORD" in
         ( "Foo" )       echo "Bar" ;;
         ( "Bar" )       echo "Foo" ;;
         ( "FooBar" )    echo "No Way" ;;
+        ( "" ) ;;
         ( * )           echo "FooBar" ;;
     esac
 done
 ```
+
 <div class="notes">
 A while loop. So long as the statement is true it will loop forever.
 In `while.sh`.

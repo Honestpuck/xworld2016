@@ -258,94 +258,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We can use the result from any command in an <code>if</code> statement. The special variable <code>$?</code> saves the result of the last command.</p>
 </aside>
 </section>
-<section id="parameters-to-a-function" class="slide level3">
-<h1>Parameters To A Function</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># send message to my phone via Pushover</span>
-<span class="co"># API and user keys are in my TOKENS file outside the repo.</span>
-<span class="fu">pushover()</span> <span class="kw">{</span>
-    <span class="ot">PUSHOVERURL=</span><span class="st">&quot;https://api.pushover.net/1/messages.json&quot;</span>
-
-    <span class="ot">TITLE=</span><span class="st">&quot;</span><span class="ot">${1}</span><span class="st">&quot;</span> ; <span class="ot">MESSAGE=</span><span class="st">&quot;</span><span class="ot">${2}</span><span class="st">&quot;</span> ; <span class="ot">DEVICE=</span><span class="st">&quot;</span><span class="ot">${3}</span><span class="st">&quot;</span>
-
-    <span class="kw">curl</span> \
-    -F <span class="st">&quot;token=</span><span class="ot">${PUSHOVER_API}</span><span class="st">&quot;</span> -F <span class="st">&quot;user=</span><span class="ot">${PUSHOVER_USER}</span><span class="st">&quot;</span> \
-    -F <span class="st">&quot;device=</span><span class="ot">${DEVICE}</span><span class="st">&quot;</span> -F <span class="st">&quot;title=</span><span class="ot">${TITLE}</span><span class="st">&quot;</span> \
-    -F <span class="st">&quot;message=</span><span class="ot">${MESSAGE}</span><span class="st">&quot;</span> <span class="st">&quot;</span><span class="ot">${PUSHOVERURL}</span><span class="st">&quot;</span> <span class="kw">&gt;</span> /dev/null <span class="kw">2&gt;&amp;1</span>
-<span class="kw">}</span></code></pre></div>
-<aside class="notes">
-<p>Here we have a function where we are passing parameters. Notice we have to do it by number and it is 1 indexed.</p>
-</aside>
-</section>
-<section id="decisions-decisions-1" class="slide level3">
-<h1>Decisions, Decisions</h1>
-<ul>
-<li>If, else, then</li>
-<li>Case</li>
-<li>Using '&amp;&amp;' and '||'</li>
-</ul>
-</section>
-<section id="example-decision-1" class="slide level3">
-<h1>Example Decision</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># make root red</span>
-<span class="kw">if [</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span>
-<span class="kw">then</span>
-        <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span>
-<span class="kw">fi</span></code></pre></div>
-<aside class="notes">
-<p>An if statement. In this one we decide if we want to change the colour of the prompt depending if we are <code>root</code> or not. Not the <code>id -u</code> between the backticks. When we place a command between backticks the command is run and the output is used. Here we have the <code>id</code> shell command print our user ID, which is 0 if we are root. In <code>if.sh</code>.</p>
-</aside>
-</section>
-<section id="colour-ls-1" class="slide level3">
-<h1>Colour <code>ls</code></h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="co"># colours for the Gnu ls (from coreutils)</span>
-<span class="kw">if [</span> <span class="st">&quot;</span><span class="ot">$TERM</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;dumb&quot;</span><span class="kw"> ]</span>; <span class="kw">then</span>
-    <span class="kw">export</span> <span class="ot">LS_OPTIONS=</span><span class="st">&#39;--color=auto -F -G -h&#39;</span>
-    <span class="kw">eval</span> <span class="kw">`gdircolors</span> ~/.dircolors<span class="kw">`</span>
-<span class="kw">fi</span></code></pre></div>
-<aside class="notes">
-<p>Here's another if statement. Notice that this time we don't have a return before the <code>then</code>, instead we have a semi-colon, <code>;</code> to represent the same thing. On any line we can replace a return with a semi-colon.</p>
-</aside>
-</section>
-<section id="make-a-case-1" class="slide level3">
-<h1>Make A Case</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
-
-<span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
-
-<span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
-    <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
-    <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
-    <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
-    <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
-<span class="kw">esac</span></code></pre></div>
-<aside class="notes">
-<p>Here is a case statement. If the variable matches the value in the parentheses it runs the statement on that line. The value <code>( * )</code> matches everything. The <code>read</code> statement reads from the command line until you press return. In <code>case.sh</code></p>
-</aside>
-</section>
-<section id="using-and-1" class="slide level3">
-<h1>Using &amp;&amp; and ||</h1>
-<p>A <strong>AND</strong> B <strong>OR</strong> C</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span> <span class="kw">`id</span> -u<span class="kw">`</span> <span class="ot">=</span> 0<span class="kw"> ]</span> <span class="kw">&amp;&amp;</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[31m\]\h:\W \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span> <span class="kw">\</span>
-<span class="kw">||</span> <span class="ot">PS1=</span><span class="st">&quot;\[\033[34m\]\h:\w \u</span><span class="dt">\$</span><span class="st">\[\033[0m\] &quot;</span></code></pre></div>
-<aside class="notes">
-<p>Here we use logic operators rather than if and else. This is perfect if you only want to run single commands. It works because the shell is &quot;lazy&quot; and won't run the second command in an AND when the first is false, then because the first set of statements is false it will run the command after the OR. In <code>and.sh</code>.</p>
-</aside>
-</section>
-<section id="checking-the-result-code-1" class="slide level3">
-<h1>Checking The Result Code</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if</span> <span class="kw">ls</span> mysillyfilename <span class="kw">;</span> <span class="kw">then</span>
-    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-<span class="kw">fi</span>
-
-<span class="co"># checking result code variable</span>
-<span class="kw">ls</span> mysillyfilename
-<span class="kw">if [</span> <span class="ot">$?</span> <span class="ot">=</span> 0<span class="kw"> ]</span> ; <span class="kw">then</span>
-    <span class="kw">echo</span> <span class="st">&quot;File exists.&quot;</span>
-<span class="kw">fi</span></code></pre></div>
-<aside class="notes">
-<p>We can use the result from any command in an <code>if</code> statement. The special variable <code>$?</code> saves the result of the last command.</p>
-</aside>
-</section>
 <section id="checking-a-file" class="slide level3">
 <h1>Checking A File</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">if [</span> <span class="ot">-e</span> README.md<span class="kw"> ]</span> ; <span class="kw">then</span>
@@ -400,15 +312,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="while-loop" class="slide level3">
 <h1>While Loop</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
-
+<span class="ot">WORD=</span><span class="st">&quot;Start&quot;</span>
+<span class="kw">while [</span> <span class="st">&quot;</span><span class="ot">$WORD</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;&quot;</span><span class="kw"> ]</span> ; <span class="kw">do</span>
 <span class="kw">echo</span> -n <span class="st">&quot;Word: &quot;</span> <span class="kw">;</span> <span class="kw">read</span> <span class="ot">WORD</span>
-
-<span class="kw">while [</span> <span class="ot">$WORD</span> <span class="ot">-ne</span> <span class="st">&quot;&quot;</span><span class="kw"> ]</span> ; <span class="kw">do</span>
-    <span class="kw">case</span> <span class="ot">$WORD</span><span class="kw"> in</span>
+    <span class="kw">case</span> <span class="st">&quot;</span><span class="ot">$WORD</span><span class="st">&quot;</span><span class="kw"> in</span>
         <span class="kw">(</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">;;</span>
         <span class="kw">(</span> <span class="st">&quot;Bar&quot;</span> <span class="kw">)</span>       <span class="kw">echo</span> <span class="st">&quot;Foo&quot;</span> <span class="kw">;;</span>
         <span class="kw">(</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">)</span>    <span class="kw">echo</span> <span class="st">&quot;No Way&quot;</span> <span class="kw">;;</span>
-        <span class="kw">(</span> <span class="kw">*</span> <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
+        <span class="kw">(</span> <span class="st">&quot;&quot;</span> <span class="kw">)</span> <span class="kw">;;</span>
+        <span class="kw">(</span> * <span class="kw">)</span>           <span class="kw">echo</span> <span class="st">&quot;FooBar&quot;</span> <span class="kw">;;</span>
     <span class="kw">esac</span>
 <span class="kw">done</span></code></pre></div>
 <aside class="notes">
